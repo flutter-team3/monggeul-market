@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/ui/home/home_page.dart';
 
+import 'app/app_theme.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
+      theme: AppTheme.buildTheme(),
       home: const HomePage(),
     );
   }
