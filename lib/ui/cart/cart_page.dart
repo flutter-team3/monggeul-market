@@ -33,8 +33,7 @@ class CartPage extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Image.network(
-                    '${AppConstants.randomImageUrl}seed/${cartItem.product.imageSeed}/${imageDimension.
-                    toStringAsFixed(0)}/${imageDimension.toStringAsFixed(0)}',
+                    '${AppConstants.randomImageUrl}seed/${cartItem.product.imageSeed}/${imageDimension.toStringAsFixed(0)}/${imageDimension.toStringAsFixed(0)}',
                     width: imageDimension,
                     height: imageDimension,
                     fit: BoxFit.cover,
@@ -53,7 +52,7 @@ class CartPage extends StatelessWidget {
                             cartItem.product.name,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: 19,
                             ),
                           ),
                           SizedBox(height: 2),
@@ -76,9 +75,25 @@ class CartPage extends StatelessWidget {
                 ),
                 SizedBox(
                   height: imageDimension,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [CartItemAmount(cartItem.amount)],
+                  width: 80,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Positioned(
+                        top: 0,
+                        // left: 0,
+                        right: 5,
+                        child: Icon(
+                          Icons.delete,
+                          color: AppColors.plusMinusIcon,
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: CartItemAmount(cartItems[index].amount),
+                      ),
+                    ],
                   ),
                 ),
               ],
