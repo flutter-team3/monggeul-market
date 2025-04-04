@@ -5,7 +5,7 @@ import 'package:project_name_change/model/product.dart';
 
 class ProductForList extends StatelessWidget {
   Product product;
-  
+
   ProductForList(this.product);
 
   @override
@@ -16,7 +16,14 @@ class ProductForList extends StatelessWidget {
         width: double.infinity,
         child: Row(
           children: [
-            Container(width: 80, height: 80, color: Colors.amber),
+            Container(
+              width: 80,
+              height: 80,
+              child: Image.network(
+                fit: BoxFit.cover,
+                'https://picsum.photos/200/300',
+              ),
+            ),
             SizedBox(width: 10),
             Expanded(
               child: Container(
