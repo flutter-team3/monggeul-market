@@ -66,9 +66,12 @@ class CartPage extends StatelessWidget {
                                   top: 0,
                                   // left: 0,
                                   right: 5,
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: AppColors.plusMinusIcon,
+                                  child: InkWell(
+                                    onTap: (){},
+                                    child: Icon(
+                                      Icons.delete,
+                                      color: AppColors.plusMinusIcon,
+                                    ),
                                   ),
                                 ),
                                 Positioned(
