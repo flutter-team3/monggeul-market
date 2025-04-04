@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:project_name_change/app/constants/app_colors.dart';
+import 'package:project_name_change/model/category.dart';
+import 'package:project_name_change/model/product.dart';
 
-class ProductRegisterPage extends StatelessWidget {
+class ProductRegisterPage extends StatefulWidget {
   const ProductRegisterPage({super.key});
 
+  @override
+  State<ProductRegisterPage> createState() => _ProductRegisterPageState();
+}
+
+class _ProductRegisterPageState extends State<ProductRegisterPage> {
+  //image 추가 예정
+  String? name;
+  String? description;
+  int? price;
+  Category? category;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,16 +27,85 @@ class ProductRegisterPage extends StatelessWidget {
           children: [
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AspectRatio(aspectRatio: 16 / 9, child: Container(width: double.infinity, color: Colors.grey, child: Center(child: Text('이미지')))),
-                    Row(children: [Text("상품 이름"), Expanded(child: TextField())]),
-                    Row(children: [Text("상품 가격"), Expanded(child: TextField())]),
 
-                    Text("상품 설명"),
-                    TextField(),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("상품 이름", style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                name = value;
+                              });
+                            },
+                            decoration: InputDecoration(
+                              hintText: "상품 이름",
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                              fillColor: Colors.white,
+                              filled: true,
+                              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("상품 가격", style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextField(
+                            inputFormatters: [FilteringTextInputFormatter.digitsOnly], // 숫자만 입력
+                            onChanged: (value) {
+                              setState(() {
+                                price = int.parse(value);
+                              });
+                            },
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: "상품 가격",
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                              fillColor: Colors.white,
+                              filled: true,
+                              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("상품 설명", style: TextStyle(fontWeight: FontWeight.bold)),
+                          TextField(
+                            onChanged: (value) {
+                              setState(() {
+                                description = value;
+                              });
+                            },
+                            maxLines: 5,
+                            minLines: 5,
+                            decoration: InputDecoration(
+                              hintText: "상품 설명",
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                              fillColor: Colors.white,
+                              filled: true,
+                              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
