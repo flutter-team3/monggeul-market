@@ -2,6 +2,7 @@ import '../../model/category.dart';
 import '../../model/product.dart';
 
 class AppConstants {
+  static const randomImageUrl = 'https://picsum.photos/';
   static const List<Product> productList = [
     // 도마뱀
     Product(
