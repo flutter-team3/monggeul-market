@@ -5,7 +5,7 @@ class CartItem {
   int _amount = 1;
   int get amount => _amount;
 
-  CartItem({required this.product});
+  CartItem(this.product);
 
   /// Adds one product to the CartItem.
   void addOne() {
