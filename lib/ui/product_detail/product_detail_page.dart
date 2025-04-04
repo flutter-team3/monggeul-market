@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import '../../model/product.dart';
+import '../../util/util.dart';
 
 class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final product = ModalRoute.of(context)!.settings.arguments as Product;
+
     return Scaffold(
       appBar: AppBar(title: Text('제품 상세')),
       body: Column(
@@ -12,7 +16,7 @@ class ProductDetailPage extends StatelessWidget {
           AspectRatio(
             aspectRatio: 3 / 2,
             child: Image.network(
-              'https://picsum.photos/300/200',
+              'https://picsum.photos/300/200', // 추후 이미지 로드 방식 변경에 따라 수정
               fit: BoxFit.cover,
             ),
           ),
@@ -22,10 +26,10 @@ class ProductDetailPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Row(
               children: [
-                Text('상품 이름', style: TextStyle(fontSize: 24)),
+                Text((product.name), style: TextStyle(fontSize: 24)),
                 Expanded(child: SizedBox()),
                 Text(
-                  '16,000 원',
+                  formatKrw(product.price),
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -37,7 +41,7 @@ class ProductDetailPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: ListView(
                 children: [
-                  Text('이 제품은 사슴벌레 젤리입니다.', style: TextStyle(fontSize: 16)),
+                  Text(product.description, style: TextStyle(fontSize: 16)),
                 ],
               ),
             ),
@@ -61,7 +65,7 @@ class ProductDetailPage extends StatelessWidget {
                       SizedBox(width: 25),
                       Expanded(
                         child: Text(
-                          '16,000원',
+                          formatKrw(product.price),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 24,
