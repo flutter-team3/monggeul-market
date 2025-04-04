@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:project_name_change/model/product.dart';
+import 'package:project_name_change/ui/product_detail/product_detail_page.dart';
 
 class ProductForList extends StatelessWidget {
   Product product;
@@ -11,7 +12,15 @@ class ProductForList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => ProductDetailPage(),
+            settings: RouteSettings(
+              arguments: product,
+            )
+          ),
+        );
+      },
       child: Container(
         width: double.infinity,
         child: Row(
