@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: AppTheme.buildTheme(),
-      home: const HomePage(),
+      home: HomePage(),
     );
   }
 }
