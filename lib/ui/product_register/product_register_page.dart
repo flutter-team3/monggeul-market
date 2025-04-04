@@ -112,12 +112,46 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
             ),
 
             GestureDetector(
-              child: Container(color: Colors.grey, height: 70, width: double.infinity, child: Center(child: Text("등록하기"))),
-              onTap: () {},
+              child: Container(
+                color: areAllFieldsFilled(name, price, description) ? AppColors.primary : Colors.grey[300],
+                height: 70,
+                width: double.infinity,
+                child: Center(child: Text("등록하기")),
+              ),
+              onTap: () {
+                if (areAllFieldsFilled(name, price, description)) {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: Text("상품 등록이 완료되었습니다."),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              //
+
+                              Navigator.pop(context);
+                              Navigator.pop(context, Product(name: name!, price: price!, description: description!, category: category!));
+                            },
+                            child: Text("닫기"),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              },
             ),
           ],
         ),
       ),
     );
+  }
+
+  bool areAllFieldsFilled(String? name, int? price, String? description) {
+    if (name == null || price == null || description == null || name.isEmpty || description.isEmpty) {
+      return false; // 하나라도 비어 있으면 false 반환
+    }
+    return true; // 모두 입력되었으면 true 반환
   }
 }
