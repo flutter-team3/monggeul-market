@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_constants.dart';
 import 'package:project_name_change/model/cart_item.dart';
 import 'package:project_name_change/ui/cart/widgets/cart_item_texts.dart';
+import 'package:project_name_change/ui/cart/widgets/total_price_row.dart';
 import 'package:project_name_change/widgets/cart_item_amount.dart';
 
 import '../../app/constants/app_colors.dart';
@@ -30,8 +31,11 @@ class CartPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: ListView.separated(
-                  itemCount: cartItems.length,
+                  itemCount: cartItems.length + 1,
                   itemBuilder: (context, index) {
+                    if (index == cartItems.length) {
+                      return TotalPriceRow();
+                    }
                     final cartItem = cartItems[index];
                     return Padding(
                       padding: EdgeInsets.only(top: index == 0 ? 15 : 0),
@@ -70,7 +74,9 @@ class CartPage extends StatelessWidget {
                                 Positioned(
                                   bottom: 0,
                                   right: 0,
-                                  child: CartItemAmount(cartItems[index].amount),
+                                  child: CartItemAmount(
+                                    cartItems[index].amount,
+                                  ),
                                 ),
                               ],
                             ),
