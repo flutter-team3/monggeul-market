@@ -6,6 +6,8 @@ import 'package:project_name_change/ui/home/widgets/product_list.dart';
 import 'package:project_name_change/ui/product_detail/product_detail_page.dart';
 import 'package:project_name_change/ui/product_register/product_register_page.dart';
 
+import '../navigation_test_page.dart';
+
 class HomePage extends StatelessWidget {
   String title = '상품 리스트';
   HomePage({super.key});
@@ -17,6 +19,19 @@ class HomePage extends StatelessWidget {
         title: Text(title),
         centerTitle: true,
         backgroundColor: AppColors.primary,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.navigation_sharp),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NavigationTestPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: Stack(
