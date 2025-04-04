@@ -2,7 +2,7 @@ import '../../model/category.dart';
 import '../../model/product.dart';
 
 class AppConstants {
-  static List<Product> baseProductList = [
+  static List<Product> productList = [
     // 도마뱀
     Product(
       name: '도마뱀 전용 사료팩',
