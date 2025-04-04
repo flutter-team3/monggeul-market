@@ -6,7 +6,7 @@ class Product {
   final String name;
   final String description;
   final int price;
-  String? imageUrl;
+  // String? imageUrl;
   final Category category;
 
   Product({
