@@ -7,15 +7,12 @@ class ProductList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: 
-      ListView.separated(
-        separatorBuilder: (context,int index) => const Divider(),
-        itemCount : AppConstants.productList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ProductForList(AppConstants.productList[index]);
-        },
-      ),
+    return ListView.separated(
+      separatorBuilder: (context,int index) => const Divider(),
+      itemCount : AppConstants.productList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ProductForList(AppConstants.productList[index]);
+      },
     );
   }
 }
