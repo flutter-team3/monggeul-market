@@ -47,24 +47,24 @@ class ProductDetailPage extends StatelessWidget {
             decoration: BoxDecoration(color: Colors.grey[300]),
             child: Column(
               children: [
+                SizedBox(height: 15),
                 Padding(
-                  padding: const EdgeInsets.only(left: 40, right: 40, top: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: [
-                      SizedBox(
-                        height: 30,
-                        width: 120,
-                        child: Container(
-                          decoration: BoxDecoration(color: Colors.white),
-                          child: Text('-, + 수량변경 버튼'),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text('-,+ 수량변경 버튼'), // 버튼 위젯으로 변경 예정
                         ),
                       ),
-                      Expanded(child: SizedBox()),
-                      SizedBox(
+                      SizedBox(width: 25),
+                      Expanded(
                         child: Text(
                           '16,000원',
+                          textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 22,
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
