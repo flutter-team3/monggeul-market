@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../app/constants/app_constants.dart';
 import '../../model/product.dart';
 import '../../util/util.dart';
 import '../../widgets/cart_item_amount.dart';
@@ -17,7 +18,7 @@ class ProductDetailPage extends StatelessWidget {
           AspectRatio(
             aspectRatio: 3 / 2,
             child: Image.network(
-              'https://picsum.photos/300/200', // 추후 이미지 로드 방식 변경에 따라 수정
+              '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/200',
               fit: BoxFit.cover,
             ),
           ),
