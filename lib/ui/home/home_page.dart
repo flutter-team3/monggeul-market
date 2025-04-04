@@ -10,6 +10,39 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
+      endDrawer: Drawer(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 95, horizontal: 65),
+              child: Row(
+                children: [
+                  Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Spacer(),
+                  Text('찜리스트'),
+                ],
+              ),
+            ),
+            Column(
+              children: [
+                Divider(),
+                categoryButton('도마뱀'),
+                Divider(),
+                categoryButton('고슴도치'),
+                Divider(),
+                categoryButton('사슴벌레'),
+                Divider(),
+                categoryButton('앵무새'),
+                Divider(),
+                categoryButton('라쿤'),
+                Divider(),
+              ],
+            ),
+          ],
+        ),
+      ),
+
       body: SafeArea(
         child: Stack(
           children: [
@@ -20,18 +53,21 @@ class HomePage extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => ProductRegisterPage(),
-                  ));
+                    MaterialPageRoute(
+                      builder: (context) => ProductRegisterPage(),
+                    ),
+                  );
                 },
-                child: Icon(
-                  Icons.add,
-                  size: 80,
-                ),
+                child: Icon(Icons.add, size: 80),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Widget categoryButton(String text) {
+    return Container(margin: EdgeInsets.all(25), child: Text(text));
   }
 }
