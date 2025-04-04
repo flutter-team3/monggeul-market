@@ -7,17 +7,16 @@ import 'package:project_name_change/ui/product_detail/product_detail_page.dart';
 class ProductForList extends StatelessWidget {
   Product product;
 
-  ProductForList(this.product);
+  ProductForList(this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => ProductDetailPage(),
-            settings: RouteSettings(
-              arguments: product,
-            )
+          MaterialPageRoute(
+            builder: (context) => ProductDetailPage(),
+            settings: RouteSettings(arguments: product),
           ),
         );
       },
@@ -30,14 +29,14 @@ class ProductForList extends StatelessWidget {
               height: 80,
               child: Image.network(
                 fit: BoxFit.cover,
-                'https://picsum.photos/200/300',
+                'https://picsum.photos/300/300',
               ),
             ),
             SizedBox(width: 10),
             Expanded(
               child: Container(
                 height: 100,
-                color: Colors.blueGrey,
+                // color: Colors.white,
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: productInformation(),
@@ -60,14 +59,18 @@ class ProductForList extends StatelessWidget {
               Align(alignment: Alignment.centerLeft, child: Text(product.name)),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text(product.description),
+                child: Text(
+                  style: TextStyle(fontSize: 12),
+                  overflow: TextOverflow.ellipsis,
+                  product.description,
+                ),
               ),
             ],
           ),
         ),
         Align(
           alignment: Alignment.bottomRight,
-          child: Text(product.price.toString()),
+          child: Text(style: TextStyle(fontSize: 10), product.price.toString()),
         ),
       ],
     );
