@@ -17,6 +17,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
   String? description;
   int? price;
   Category? category;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,49 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AspectRatio(aspectRatio: 16 / 9, child: Container(width: double.infinity, color: Colors.grey, child: Center(child: Text('이미지')))),
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("카테고리", style: TextStyle(fontWeight: FontWeight.bold)),
+                          SizedBox(
+                            height: 40, // 칩 높이 설정
+                            child: ListView(
+                              scrollDirection: Axis.horizontal, // 가로 스크롤
+                              children:
+                                  Category.values.map((value) {
+                                    bool isSelected = category == value;
 
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            category = isSelected ? null : value;
+                                          });
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+
+                                          decoration: BoxDecoration(
+                                            color: isSelected ? AppColors.primary : Colors.grey.shade200,
+                                            borderRadius: BorderRadius.circular(20),
+                                            border: Border.all(color: isSelected ? AppColors.primary : Colors.grey),
+                                          ),
+                                          child: Text(
+                                            value.label,
+                                            style: TextStyle(color: Colors.black, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: Column(
@@ -113,13 +156,13 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
 
             GestureDetector(
               child: Container(
-                color: areAllFieldsFilled(name, price, description) ? AppColors.primary : Colors.grey[300],
+                color: areAllFieldsFilled(name, price, description, category) ? AppColors.primary : Colors.grey[300],
                 height: 70,
                 width: double.infinity,
                 child: Center(child: Text("등록하기")),
               ),
               onTap: () {
-                if (areAllFieldsFilled(name, price, description)) {
+                if (areAllFieldsFilled(name, price, description, category)) {
                   showDialog(
                     context: context,
                     builder: (context) {
@@ -128,8 +171,6 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                         actions: [
                           TextButton(
                             onPressed: () {
-                              //
-
                               Navigator.pop(context);
                               Navigator.pop(context, Product(name: name!, price: price!, description: description!, category: category!));
                             },
@@ -148,8 +189,8 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
     );
   }
 
-  bool areAllFieldsFilled(String? name, int? price, String? description) {
-    if (name == null || price == null || description == null || name.isEmpty || description.isEmpty) {
+  bool areAllFieldsFilled(String? name, int? price, String? description, Category? category) {
+    if (name == null || price == null || description == null || name.isEmpty || description.isEmpty || category == null) {
       return false; // 하나라도 비어 있으면 false 반환
     }
     return true; // 모두 입력되었으면 true 반환
