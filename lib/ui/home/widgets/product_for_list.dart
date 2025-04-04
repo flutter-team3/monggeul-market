@@ -14,6 +14,7 @@ class ProductForList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -31,7 +32,7 @@ class ProductForList extends StatelessWidget {
               height: 80,
               child: Image.network(
                 fit: BoxFit.cover,
-                AppConstants.randomImageUrl,
+                AppConstants.randomImageUrl+'300/300',
               ),
             ),
             SizedBox(width: 10),
