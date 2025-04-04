@@ -14,8 +14,38 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(title), centerTitle: true, backgroundColor: AppColors.primary, actions: [
-         
         ],
+      ),
+      endDrawer: Drawer(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 95, horizontal: 65),
+              child: Row(
+                children: [
+                  Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Spacer(),
+                  Text('찜리스트'),
+                ],
+              ),
+            ),
+            Column(
+              children: [
+                Divider(),
+                categoryButton('도마뱀'),
+                Divider(),
+                categoryButton('고슴도치'),
+                Divider(),
+                categoryButton('사슴벌레'),
+                Divider(),
+                categoryButton('앵무새'),
+                Divider(),
+                categoryButton('라쿤'),
+                Divider(),
+              ],
+            ),
+          ],
+        ),
       ),
       body: SafeArea(
         child: Stack(
@@ -36,5 +66,9 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget categoryButton(String text) {
+    return Container(margin: EdgeInsets.all(25), child: Text(text));
   }
 }
