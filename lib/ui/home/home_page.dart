@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_colors.dart';
 import 'package:project_name_change/app/constants/app_constants.dart';
-import 'package:project_name_change/ui/home/widgets/product_for_list.dart';
 import 'package:project_name_change/ui/home/widgets/product_list.dart';
-import 'package:project_name_change/ui/product_detail/product_detail_page.dart';
 import 'package:project_name_change/ui/product_register/product_register_page.dart';
+
+import '../../model/cart_item.dart';
+import '../cart/cart_page.dart';
 
 class HomePage extends StatelessWidget {
   String title = '상품 리스트';
+
   HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title), centerTitle: true, backgroundColor: AppColors.primary, actions: [
-        ],
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: true,
+        backgroundColor: AppColors.primary,
+        actions: [],
       ),
       endDrawer: Drawer(
         child: Column(
@@ -23,7 +28,26 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 95, horizontal: 65),
               child: Row(
                 children: [
-                  Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold)),
+                  GestureDetector(
+                    child: Text(
+                      '장바구니',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder:
+                              (context) => CartPage(
+                                cartItems:
+                                    AppConstants.productList
+                                        .map((product) => CartItem(product))
+                                        .toList(),
+                              ),
+                        ),
+                      );
+                    },
+                  ),
                   Spacer(),
                   Text('찜리스트'),
                 ],
@@ -57,7 +81,11 @@ class HomePage extends StatelessWidget {
               right: 0,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProductRegisterPage(),
+                    ),
+                  );
                 },
                 child: Icon(Icons.add, size: 80),
               ),

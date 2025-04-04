@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_constants.dart';
 import 'package:project_name_change/model/product.dart';
@@ -32,7 +30,7 @@ class ProductForList extends StatelessWidget {
               height: 80,
               child: Image.network(
                 fit: BoxFit.cover,
-                AppConstants.randomImageUrl + '300/300',
+                '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/300'
               ),
             ),
             SizedBox(width: 10),
