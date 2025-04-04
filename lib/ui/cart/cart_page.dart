@@ -22,60 +22,83 @@ class CartPage extends StatelessWidget {
         centerTitle: true,
         backgroundColor: AppColors.cartBackground,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        child: ListView.separated(
-          itemCount: cartItems.length,
-          itemBuilder: (context, index) {
-            final cartItem = cartItems[index];
-            return Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(5),
-                  child: Image.network(
-                    '${AppConstants.randomImageUrl}seed/${cartItem.product.imageSeed}/${imageDimension.toStringAsFixed(0)}/${imageDimension.toStringAsFixed(0)}',
-                    width: imageDimension,
-                    height: imageDimension,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                Expanded(
-                  child: SizedBox(
-                    height: imageDimension,
-                    child: CartItemTexts(cartItem),
-                  ),
-                ),
-                SizedBox(
-                  height: imageDimension,
-                  width: 80,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Positioned(
-                        top: 0,
-                        // left: 0,
-                        right: 5,
-                        child: Icon(
-                          Icons.delete,
-                          color: AppColors.plusMinusIcon,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: ListView.separated(
+                  itemCount: cartItems.length,
+                  itemBuilder: (context, index) {
+                    final cartItem = cartItems[index];
+                    return Padding(
+                      padding: EdgeInsets.only(top: index == 0 ? 15 : 0),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: Image.network(
+                              '${AppConstants.randomImageUrl}seed/${cartItem.product.imageSeed}/${imageDimension.toStringAsFixed(0)}/${imageDimension.toStringAsFixed(0)}',
+                              width: imageDimension,
+                              height: imageDimension,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Expanded(
+                            child: SizedBox(
+                              height: imageDimension,
+                              child: CartItemTexts(cartItem),
+                            ),
+                          ),
+                          SizedBox(
+                            height: imageDimension,
+                            width: 80,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Positioned(
+                                  top: 0,
+                                  // left: 0,
+                                  right: 5,
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: AppColors.plusMinusIcon,
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: CartItemAmount(cartItems[index].amount),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  separatorBuilder:
+                      (context, index) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Divider(
+                          color: Colors.grey,
+                          height: 1,
+                          thickness: 1,
                         ),
                       ),
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: CartItemAmount(cartItems[index].amount),
-                      ),
-                    ],
-                  ),
                 ),
-              ],
-            );
-          },
-          separatorBuilder:
-              (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Divider(color: Colors.grey, height: 1, thickness: 1),
               ),
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text(
+                '구매하기',
+                style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -12,6 +12,19 @@ class AppTheme {
         brightness: brightness,
       ).copyWith(primary: AppColors.primary),
       highlightColor: AppColors.primary,
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+          padding: EdgeInsets.symmetric(vertical: 17),
+          minimumSize: Size.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        ),
+      ),
     );
   }
 
