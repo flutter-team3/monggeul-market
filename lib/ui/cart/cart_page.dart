@@ -33,8 +33,8 @@ class CartPage extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Image.network(
-                    '${AppConstants.randomImageUrl}${imageDimension.
-                    toStringAsFixed(0)}/${imageDimension.toStringAsFixed(0)}?random=${index + 1}',
+                    '${AppConstants.randomImageUrl}seed/${cartItem.product.imageSeed}/${imageDimension.
+                    toStringAsFixed(0)}/${imageDimension.toStringAsFixed(0)}',
                     width: imageDimension,
                     height: imageDimension,
                     fit: BoxFit.cover,
