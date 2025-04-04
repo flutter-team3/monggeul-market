@@ -32,7 +32,7 @@ class ProductForList extends StatelessWidget {
               height: 80,
               child: Image.network(
                 fit: BoxFit.cover,
-                AppConstants.randomImageUrl+'300/300',
+                AppConstants.randomImageUrl + '300/300',
               ),
             ),
             SizedBox(width: 10),
@@ -52,30 +52,39 @@ class ProductForList extends StatelessWidget {
     );
   }
 
-  Column productInformation() {
+  Column productInformation({
+    double nameFontSize = 15,
+    double descriptionFontSize = 12,
+    double priceFontSize = 14,
+  }) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: Column(
             children: [
-              Align(alignment: Alignment.centerLeft, child: Text(product.name)),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  style: TextStyle(fontSize: 12),
-                  overflow: TextOverflow.ellipsis,
-                  product.description,
-                ),
-              ),
+              Align(alignment: Alignment.centerLeft, child: Text(product.name, style: TextStyle(fontSize: nameFontSize),)),
+              SizedBox(height: 4,),
+              Align(alignment: Alignment.centerLeft, child: productDescription(descriptionFontSize)),
             ],
           ),
         ),
         Align(
           alignment: Alignment.bottomRight,
-          child: Text(style: TextStyle(fontSize: 10), formatKrw(product.price)),
+          child: Text(style: TextStyle(fontSize: priceFontSize), formatKrw(product.price)),
         ),
       ],
+    );
+  }
+
+  Widget productDescription(double fontSize) {
+    return RichText(
+      maxLines: 3,
+      overflow: TextOverflow.ellipsis,
+      text: TextSpan(
+        style: TextStyle(color: Colors.black, fontSize: fontSize),
+        text: product.description,
+      ),
     );
   }
 }
