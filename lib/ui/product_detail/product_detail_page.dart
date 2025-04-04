@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../model/product.dart';
 import '../../util/util.dart';
+import '../../widgets/cart_item_amount.dart';
 
 class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({super.key});
@@ -56,12 +57,7 @@ class ProductDetailPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text('-,+ 수량변경 버튼'), // 버튼 위젯으로 변경 예정
-                        ),
-                      ),
+                      Expanded(child: CartItemAmount(1)),
                       SizedBox(width: 25),
                       Expanded(
                         child: Text(
