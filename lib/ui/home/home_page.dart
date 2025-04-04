@@ -6,8 +6,6 @@ import 'package:project_name_change/ui/home/widgets/product_list.dart';
 import 'package:project_name_change/ui/product_detail/product_detail_page.dart';
 import 'package:project_name_change/ui/product_register/product_register_page.dart';
 
-import '../navigation_test_page.dart';
-
 class HomePage extends StatelessWidget {
   String title = '상품 리스트';
   HomePage({super.key});
@@ -15,22 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-        title: Text(title),
-        centerTitle: true,
-        backgroundColor: AppColors.primary,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.navigation_sharp),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const NavigationTestPage(),
-                ),
-              );
-            },
-          ),
+      appBar: AppBar(title: Text(title), centerTitle: true, backgroundColor: AppColors.primary, actions: [
         ],
       ),
       endDrawer: Drawer(
@@ -68,20 +51,13 @@ class HomePage extends StatelessWidget {
         child: Stack(
           children: [
             // Column(children: [ProductForList(AppConstants.productList[0])]),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: ProductList(),
-            ),
+            Padding(padding: const EdgeInsets.all(20.0), child: ProductList()),
             Positioned(
               bottom: 0,
               right: 0,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductRegisterPage(),
-                    ),
-                  );
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
                 },
                 child: Icon(Icons.add, size: 80),
               ),
