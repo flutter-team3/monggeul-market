@@ -21,6 +21,16 @@ class HomePage extends StatelessWidget {
         backgroundColor: AppColors.primary,
         actions: [],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ProductRegisterPage(),
+            ),
+          );
+        },
+        child: Icon(Icons.add),
+      ),
       endDrawer: Drawer(
         child: Column(
           children: [
@@ -72,25 +82,9 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: Stack(
-          children: [
-            // Column(children: [ProductForList(AppConstants.productList[0])]),
-            Padding(padding: const EdgeInsets.all(20.0), child: ProductList()),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => ProductRegisterPage(),
-                    ),
-                  );
-                },
-                child: Icon(Icons.add, size: 80),
-              ),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: ProductList(),
         ),
       ),
     );
