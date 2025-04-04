@@ -1,8 +1,10 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:project_name_change/app/constants/app_constants.dart';
 import 'package:project_name_change/model/product.dart';
 import 'package:project_name_change/ui/product_detail/product_detail_page.dart';
+import 'package:project_name_change/util/util.dart';
 
 class ProductForList extends StatelessWidget {
   Product product;
@@ -29,7 +31,7 @@ class ProductForList extends StatelessWidget {
               height: 80,
               child: Image.network(
                 fit: BoxFit.cover,
-                'https://picsum.photos/300/300',
+                AppConstants.randomImageUrl,
               ),
             ),
             SizedBox(width: 10),
@@ -70,7 +72,7 @@ class ProductForList extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.bottomRight,
-          child: Text(style: TextStyle(fontSize: 10), product.price.toString()),
+          child: Text(style: TextStyle(fontSize: 10), formatKrw(product.price)),
         ),
       ],
     );
