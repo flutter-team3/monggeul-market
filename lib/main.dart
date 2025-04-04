@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/ui/home/home_page.dart';
+import 'package:project_name_change/ui/product_register/product_register_page.dart';
 
 import 'app/app_theme.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: AppTheme.buildTheme(),
-      home: const HomePage(),
+      home: const ProductRegisterPage(),
     );
   }
 }
