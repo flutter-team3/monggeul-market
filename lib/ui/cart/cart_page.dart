@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_constants.dart';
 import 'package:project_name_change/model/cart_item.dart';
+import 'package:project_name_change/ui/cart/widgets/cart_item_texts.dart';
 import 'package:project_name_change/widgets/cart_item_amount.dart';
-import 'package:project_name_change/util/util.dart';
 
 import '../../app/constants/app_colors.dart';
 
@@ -23,7 +23,7 @@ class CartPage extends StatelessWidget {
         backgroundColor: AppColors.cartBackground,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
         child: ListView.separated(
           itemCount: cartItems.length,
           itemBuilder: (context, index) {
@@ -42,35 +42,7 @@ class CartPage extends StatelessWidget {
                 Expanded(
                   child: SizedBox(
                     height: imageDimension,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            cartItem.product.name,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 19,
-                            ),
-                          ),
-                          SizedBox(height: 2),
-                          Text(
-                            '카테고리: ${cartItem.product.category.label}',
-                            style: TextStyle(fontSize: 15),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            formatKrw(cartItem.product.price),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    child: CartItemTexts(cartItem),
                   ),
                 ),
                 SizedBox(
