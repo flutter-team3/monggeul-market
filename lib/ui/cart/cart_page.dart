@@ -50,36 +50,24 @@ class CartPage extends StatelessWidget {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          Expanded(
-                            child: SizedBox(
-                              height: imageDimension,
-                              child: CartItemTexts(cartItem),
-                            ),
-                          ),
+                          Expanded(child: CartItemTexts(cartItem)),
                           SizedBox(
-                            height: imageDimension,
-                            width: 80,
+                            height: imageDimension, width: 80,
                             child: Stack(
                               alignment: Alignment.center,
                               children: [
                                 Positioned(
-                                  top: 0,
-                                  // left: 0,
-                                  right: 5,
+                                  top: 0, right: 5,
                                   child: InkWell(
-                                    onTap: (){},
+                                    onTap: () {},
                                     child: Icon(
-                                      Icons.delete,
-                                      color: AppColors.plusMinusIcon,
+                                      Icons.delete, color: AppColors.plusMinusIcon,
                                     ),
                                   ),
                                 ),
                                 Positioned(
-                                  bottom: 0,
-                                  right: 0,
-                                  child: CartItemAmount(
-                                    cartItems[index].amount,
-                                  ),
+                                  bottom: 0, right: 0,
+                                  child: CartItemAmount(cartItems[index].amount),
                                 ),
                               ],
                             ),
