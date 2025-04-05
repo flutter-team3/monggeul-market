@@ -9,15 +9,16 @@ class CartItemAmount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double iconSpace = 3;
     return Row(
       children: [
         getPlusMinusIcon(Icons.remove_circle_outline),
-        SizedBox(width: 3),
+        SizedBox(width: iconSpace),
         Text(
           amount.toString(),
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        SizedBox(width: 3),
+        SizedBox(width: iconSpace),
         getPlusMinusIcon(Icons.add_circle_outline),
       ],
     );
