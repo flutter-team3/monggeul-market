@@ -19,7 +19,7 @@ class TotalPriceRow extends StatelessWidget {
             style: TextStyle(
               fontSize: 21,
               // fontWeight: FontWeight.w600,
-              color: AppColors.primary,
+              color: Colors.grey[900],
             ),
           ),
           Text(

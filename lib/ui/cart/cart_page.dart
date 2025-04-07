@@ -1,8 +1,8 @@
 import 'dart:math';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_constants.dart';
+import 'package:project_name_change/model/cart_item.dart';
 import 'package:project_name_change/provider/cart_provider.dart';
 import 'package:project_name_change/ui/cart/widgets/cart_item_texts.dart';
 import 'package:project_name_change/ui/cart/widgets/total_price_row.dart';
@@ -22,11 +22,17 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartItems = CartProvider.of(context).cartItems;
+    final List<CartItem> cartItems = CartProvider.of(context).cartItems;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
+        title: Text(
+          '장바구니',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.primary,
+          ),
+        ),
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
@@ -43,7 +49,14 @@ class CartPage extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                       SizedBox(height: 10),
-                      Text('장바구니가 비어있습니다', style: TextStyle(fontSize: 21)),
+                      Text(
+                        '장바구니가 비어있습니다',
+                        style: TextStyle(
+                          fontSize: 21,
+                          color: AppColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ],
                   ),
                 )
@@ -82,10 +95,8 @@ class CartPage extends StatelessWidget {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(5),
                                       child: AppCachedImage(
-                                        imageUrl: '${AppConstants.randomImageUrl}seed/${cartItem
-                                            .product.imageSeed}/${imageDimension
-                                            .toStringAsFixed(0)}/${imageDimension
-                                            .toStringAsFixed(0)}',
+                                        imageUrl:
+                                            '${AppConstants.randomImageUrl}seed/${cartItem.product.imageSeed}/${imageDimension.toStringAsFixed(0)}/${imageDimension.toStringAsFixed(0)}',
                                         width: imageDimension,
                                         height: imageDimension,
                                         fit: BoxFit.cover,
