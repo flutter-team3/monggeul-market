@@ -5,9 +5,15 @@ import '../../model/product.dart';
 import '../../util/util.dart';
 import '../../widgets/cart_item_amount.dart';
 
-class ProductDetailPage extends StatelessWidget {
+class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key});
 
+  @override
+  State<ProductDetailPage> createState() => _ProductDetailPageState();
+}
+
+class _ProductDetailPageState extends State<ProductDetailPage> {
+  int amount = 1;
   @override
   Widget build(BuildContext context) {
     final product = ModalRoute.of(context)!.settings.arguments as Product;
@@ -61,9 +67,19 @@ class ProductDetailPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: CartItemAmount(
-                          amount: 1,
-                          onPlusIconTap: () {},
-                          onMinusIconTap: () {},
+                          amount: amount,
+                          onPlusIconTap: () {
+                            setState(() {
+                              amount++;
+                            });
+                          },
+                          onMinusIconTap: () {
+                            amount > 1
+                                ? setState(() {
+                                  amount--;
+                                })
+                                : {};
+                          },
                         ),
                       ),
                       SizedBox(width: 25),
@@ -88,7 +104,16 @@ class ProductDetailPage extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            if (CartProvider.of(context).addProductToCart(product)) {
+                            CartProvider.of(
+                              context,
+                            ).addProductsToCart(product, amount);
+                          },
+
+                          /*
+                          {
+                            if (CartProvider.of(
+                              context,
+                            ).addProductToCart(product)) {
                               showAppCupertinoDialog(
                                 context: context,
                                 title: '성공',
@@ -101,14 +126,21 @@ class ProductDetailPage extends StatelessWidget {
                                 content: '상품은 이미 장바구니에 담겨 있습니다',
                               );
                             }
-                          },
+                          }, */
                           child: Text('장바구니 담기'),
                         ),
                       ),
                       SizedBox(width: 25),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            showAppCupertinoDialog(
+                              showCancel: true,
+                              context: context,
+                              title: '구매 확인',
+                              content: '${product.name} $amount개 구매하시겠습니까?',
+                            );
+                          },
                           child: Text('구매하기'),
                         ),
                       ),
