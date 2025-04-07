@@ -110,6 +110,7 @@ class HomePage extends StatelessWidget {
     final provider = ProductProvider.of(context);
     return GestureDetector(
       onTap: () {
+        title = category == null ? '상품 리스트' : category.label;
         Navigator.of(context).pop();
         _textEditingController.clear();
         filterElement.word = '';
@@ -117,10 +118,7 @@ class HomePage extends StatelessWidget {
         provider.filterProduct(filterElement);
       },
       behavior: HitTestBehavior.opaque,
-      child: Container(
-        color: Colors.amber,
-        margin: EdgeInsets.all(25), 
-        child: Text(category?.label ?? '전체')
-      ));
+      child: Container(color: Colors.amber, margin: EdgeInsets.all(25), child: Text(category?.label ?? '전체')),
+    );
   }
 }

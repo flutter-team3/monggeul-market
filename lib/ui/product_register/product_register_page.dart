@@ -4,6 +4,7 @@ import 'package:project_name_change/app/constants/app_colors.dart';
 import 'package:project_name_change/model/category.dart';
 import 'package:project_name_change/model/product.dart';
 import 'package:project_name_change/provider/product_provider.dart';
+import 'package:project_name_change/util/util.dart';
 
 class ProductRegisterPage extends StatefulWidget {
   const ProductRegisterPage({super.key});
@@ -65,7 +66,10 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                                           ),
                                           child: Text(
                                             value.label,
-                                            style: TextStyle(color: Colors.black, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
+                                            style: TextStyle(
+                                              color: isSelected ? Colors.white : Colors.black,
+                                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -160,30 +164,18 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                 color: areAllFieldsFilled(name, price, description, category) ? AppColors.primary : Colors.grey[300],
                 height: 70,
                 width: double.infinity,
-                child: Center(child: Text("등록하기")),
+                child: Center(
+                  child: Text("등록하기", style: TextStyle(color: areAllFieldsFilled(name, price, description, category) ? Colors.white : Colors.black)),
+                ),
               ),
-              onTap: () {
+              onTap: () async {
                 if (areAllFieldsFilled(name, price, description, category)) {
-                  showDialog(
-                    context: context,
-                    builder: (dialogContext) {
-                      return AlertDialog(
-                        content: Text("상품 등록이 완료되었습니다."),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              _addList(context);
-                              Navigator.pop(dialogContext);
-                              WidgetsBinding.instance.addPostFrameCallback((_) {
-                                Navigator.pop(context);
-                              });
-                            },
-                            child: Text("닫기"),
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  _addList(context);
+
+                  String? result = await showAppCupertinoDialog(context: context, title: '성공', content: "상품 등록이 완료되었습니다.");
+                  if (result == '확인') {
+                    Navigator.pop(context); // ✅ 이제 안전
+                  }
                 }
               },
             ),
