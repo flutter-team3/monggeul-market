@@ -130,14 +130,31 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                         SizedBox(width: 25),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {
-                              showAppCupertinoDialog(
+                            onPressed: () async {
+                              final String?
+                              result = await showAppCupertinoDialog(
                                 showCancel: true,
                                 context: context,
                                 title: '구매 확인',
-                                content: '${product.name} $amount개 구매하시겠습니까?',
+                                content:
+                                    '${product.name} $amount개 구매하시겠습니까? 장바구니로 이동합니다.',
                               );
+                              if (!context.mounted) {
+                                return;
+                              } // await 후에 context 안전한 사용
+                              if (result == '확인') {
+                                CartProvider.of(
+                                  context,
+                                ).addProductToCart(product, amount);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CartPage(),
+                                  ),
+                                );
+                              }
                             },
+
                             child: Text(
                               '구매하기',
                               style: TextStyle(
