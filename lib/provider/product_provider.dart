@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_constants.dart';
-import 'package:project_name_change/model/category.dart';
+import 'package:project_name_change/model/filter_element.dart';
 import 'package:project_name_change/model/product.dart';
 
 class ProductProvider extends InheritedWidget {
   final List<Product> productList;
   final List<Product> productListFiltered;
   final void Function(Product) addProduct;
-  final void Function(Category) filterProduct;
+  final void Function(FilterElement) filterProduct;
 
   const ProductProvider({
     super.key, 
@@ -20,7 +20,7 @@ class ProductProvider extends InheritedWidget {
 
   @override
   bool updateShouldNotify(covariant ProductProvider oldWidget) {
-    return oldWidget.productList != productList || oldWidget.filterProduct != filterProduct;
+    return oldWidget.productList != productList || oldWidget.productListFiltered != productListFiltered;
   }
 
   static ProductProvider of(BuildContext context) {
@@ -51,13 +51,17 @@ class _ProductProviderWrapperState extends State<ProductProviderWrapper> {
     });
   }
 
-  void filterProduct(Category category){
+  void filterProduct(FilterElement filterElement){
     setState(() {
-      if(category == Category.all){
-        _productsfiltered = _products;
+      if(filterElement.category == null){
+        _productsfiltered = _products.where((product) => product.name.contains(filterElement.word))
+        .toList();
       }
       else{
-        _productsfiltered = _products.where((product) => product.category == category).toList();
+        _productsfiltered = _products
+        .where((product) => product.category == filterElement.category)
+        .where((product) => product.name.contains(filterElement.word))
+        .toList();
       }
     });
   }

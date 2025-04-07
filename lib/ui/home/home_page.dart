@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_colors.dart';
+import 'package:project_name_change/model/filter_element.dart';
 import 'package:project_name_change/model/product.dart';
 import 'package:project_name_change/provider/product_provider.dart';
 import 'package:project_name_change/ui/home/widgets/product_list_widget.dart';
@@ -19,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   String title = '상품 리스트';
   late List<Product> products;
   final TextEditingController _textEditingController = TextEditingController();
+  final FilterElement filterElement = FilterElement('', null);
 
   void onListChanged(List<Product> newProducts){
     setState(() {
@@ -28,7 +30,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    products = ProductProvider.of(context).productList;
+    final provider = ProductProvider.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -76,7 +78,7 @@ class _HomePageState extends State<HomePage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    categoryButton(Category.all, context),
+                    categoryButton(null, context),
                     Divider(),
                     categoryButton(Category.hedgehog, context),
                     Divider(),
@@ -102,7 +104,8 @@ class _HomePageState extends State<HomePage> {
             children: [
               SearchBar(
                 onChanged: (value) {
-                  
+                  filterElement.word = value;
+                  provider.filterProduct(filterElement);
                 },
                 controller: _textEditingController,
                 leading: const Icon(Icons.search),
@@ -111,12 +114,14 @@ class _HomePageState extends State<HomePage> {
                     message: 'hi',
                     child: IconButton(onPressed: () {
                       _textEditingController.clear();
+                      filterElement.word = '';
+                      provider.filterProduct(filterElement);
                     }, icon: Icon(Icons.highlight_remove)),
                   )
                 ],
               ),
               SizedBox(height: 10,),
-              Expanded(child: ProductListWidget(products)),
+              Expanded(child: ProductListWidget(provider.productListFiltered)),
             ],
           ),
         ),
@@ -124,20 +129,21 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget categoryButton(Category category, BuildContext context) {
+  Widget categoryButton(Category? category, BuildContext context) {
     final provider = ProductProvider.of(context);
     return GestureDetector(
       onTap: () {
-        title = category.label == '전체' ? '상품 리스트' : category.label;
+        // title = category?.label == '전체' ? '상품 리스트' : category.label;
         Navigator.of(context).pop();
-        provider.filterProduct(category);
+        filterElement.category = category;
+        provider.filterProduct(filterElement);
         onListChanged(provider.productListFiltered);
       },
       behavior: HitTestBehavior.opaque,
       child: Container(
         color: Colors.amber,
         margin: EdgeInsets.all(25), 
-        child: Text(category.label)
+        child: Text(category?.label ?? '전체')
       ));
   }
 }
