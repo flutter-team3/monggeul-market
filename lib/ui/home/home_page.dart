@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
                 trailing: [
                   Tooltip(
                     message: 'remove text',
-                    child: IconButton(onPressed: () {
+                    child: _textEditingController.text == '' ? null : IconButton(onPressed: () {
                       _textEditingController.clear();
                       provider.filterProduct(filterElement.resetWord());
                     }, icon: Icon(Icons.highlight_remove)),
