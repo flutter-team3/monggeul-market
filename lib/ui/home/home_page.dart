@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final String title = '상품 리스트';
+  String title = '상품 리스트';
   late List<Product> products;
 
   void onListChanged(List<Product> newProducts){
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(title),
         centerTitle: true,
-        backgroundColor: AppColors.primary,
+        // backgroundColor: AppColors.primary,
         actions: [],
       ),
       floatingActionButton: FloatingActionButton(
@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> {
     final provider = ProductProvider.of(context);
     return GestureDetector(
       onTap: () {
+        title = category.label == '전체' ? '상품 리스트' : category.label;
         Navigator.of(context).pop();
         provider.filterProduct(category);
         onListChanged(provider.productListFiltered);
