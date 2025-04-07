@@ -19,7 +19,7 @@ Future<String?> showAppCupertinoDialog({
   bool showCancel = false,
 }) {
   final confirmButtonText = showCancel ? '네' : '확인';
-  Widget dialog = CupertinoAlertDialog(
+  final Widget dialog = CupertinoAlertDialog(
     title: Text(title, style: const TextStyle(fontSize: 20)),
     content: Text(content, style: const TextStyle(fontSize: 15)),
     actions: [

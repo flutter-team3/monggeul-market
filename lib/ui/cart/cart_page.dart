@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_constants.dart';
+import 'package:project_name_change/model/cart_item.dart';
 import 'package:project_name_change/provider/cart_provider.dart';
 import 'package:project_name_change/ui/cart/widgets/cart_item_texts.dart';
 import 'package:project_name_change/ui/cart/widgets/total_price_row.dart';
@@ -21,7 +22,7 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartItems = CartProvider.of(context).cartItems;
+    final List<CartItem> cartItems = CartProvider.of(context).cartItems;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
