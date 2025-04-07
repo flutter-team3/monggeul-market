@@ -12,7 +12,6 @@ class CartItem {
     _amount++;
   }
 
-  /// Adds one product to the CartItem.
   void addAdditional(int additional) {
     _amount += additional;
   }
