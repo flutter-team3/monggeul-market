@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    categoryButton(Category.all, context),
+                    categoryButton(null, context),
                     Divider(),
                     categoryButton(Category.hedgehog, context),
                     Divider(),
@@ -74,16 +74,16 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget categoryButton(Category category, BuildContext context) {
+  Widget categoryButton(Category? category, BuildContext context) {
     final provider = ProductProvider.of(context);
     return GestureDetector(
       onTap: () {
-        title = category.label == '전체' ? '상품 리스트' : category.label;
+        title = category == null ? '상품 리스트' : category.label;
         Navigator.of(context).pop();
         provider.filterProduct(category);
       },
       behavior: HitTestBehavior.opaque,
-      child: Container(color: Colors.amber, margin: EdgeInsets.all(25), child: Text(category.label)),
+      child: Container(color: Colors.amber, margin: EdgeInsets.all(25), child: Text(category?.label ?? '전체')),
     );
   }
 }

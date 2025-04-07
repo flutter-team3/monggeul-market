@@ -7,7 +7,7 @@ class ProductProvider extends InheritedWidget {
   final List<Product> productList;
   final List<Product> productListFiltered;
   final void Function(Product) addProduct;
-  final void Function(Category) filterProduct;
+  final void Function(Category?) filterProduct;
 
   const ProductProvider({
     super.key,
@@ -51,9 +51,9 @@ class _ProductProviderWrapperState extends State<ProductProviderWrapper> {
     });
   }
 
-  void filterProduct(Category category) {
+  void filterProduct(Category? category) {
     setState(() {
-      if (category == Category.all) {
+      if (category == null) {
         _productsfiltered = _products;
       } else {
         _productsfiltered = _products.where((product) => product.category == category).toList();
