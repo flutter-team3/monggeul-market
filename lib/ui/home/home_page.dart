@@ -97,7 +97,21 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: ProductListWidget(products),
+          child: Column(
+            children: [
+              SearchBar(
+                leading: const Icon(Icons.search),
+                trailing: [
+                  Tooltip(
+                    message: 'hi',
+                    child: IconButton(onPressed: () {}, icon: Icon(Icons.highlight_remove)),
+                  )
+                ],
+              ),
+              SizedBox(height: 10,),
+              Expanded(child: ProductListWidget(products)),
+            ],
+          ),
         ),
       ),
     );
