@@ -5,16 +5,24 @@ import 'package:project_name_change/model/product.dart';
 class CartProvider extends InheritedWidget {
   /// 장바구니 상품 목록
   final List<CartItem> cartItems;
+
   /// 장바구니 총 금액
   final int totalPrice;
-  /// 장바구니에 상품 추가, 이미 있으면 false 반환
-  final bool Function(Product) addProductToCart;
+
+  /// 장바구니에 상품 추가, 이미 있으면 상품 개수 증가
+  final void Function(Product, int) addProductToCart;
+
   /// 장바구니에서 특정 인덱스 상품 삭제
   final void Function(int) removeCartItem;
+
   /// 장바구니 특정 인덱스 상품의 수량을 1개 증가
   final void Function(int) increaseCartItemAmount;
+
   /// 장바구니 특정 인덱스 상품의 수량을 1개 감소
   final void Function(int) decreaseCartItemAmount;
+
+  /// 장바구니 특정 인덱스 상품의 수량을 n개 증가
+  final void Function(int, int) increaseAdditionalCartItemAmount;
 
   const CartProvider({
     super.key,
@@ -25,6 +33,7 @@ class CartProvider extends InheritedWidget {
     required this.removeCartItem,
     required this.increaseCartItemAmount,
     required this.decreaseCartItemAmount,
+    required this.increaseAdditionalCartItemAmount,
   });
 
   @override
@@ -56,16 +65,25 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
   final List<CartItem> _cartItems = [];
   int _totalPrice = 0;
 
-  /// 장바구니에 상품 추가, 이미 있으면 false 반환
-  bool addProductToCart(Product product) {
-    if(_cartItems.any((cartItem) => cartItem.product == product)) {
-      return false;
+  /// 장바구니에 상품 추가, 이미 있으면 수량 추가
+  void addProductToCart(Product product, int additional) {
+    final index = _cartItems.indexWhere(
+      (cartItem) => cartItem.product == product,
+    );
+
+    if (index != -1) {
+      setState(() {
+        _totalPrice += product.price * additional;
+        _cartItems[index].addAdditional(additional);
+      });
+    } else {
+      setState(() {
+        setState(() {
+          _totalPrice += product.price * additional;
+          _cartItems.add(CartItem(product, amount: additional));
+        });
+      });
     }
-    setState(() {
-      _totalPrice += product.price;
-      _cartItems.add(CartItem(product));
-    });
-    return true;
   }
 
   /// 장바구니에서 특정 인덱스 상품 삭제
@@ -96,6 +114,14 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
     }
   }
 
+  /// 장바구니 특정 인덱스 상품의 수량을 n개(n == additioanl) 증가
+  void increaseAdditionalCartItemAmount(int cartItemIndex, int additional) {
+    setState(() {
+      _totalPrice += _cartItems[cartItemIndex].product.price * additional;
+      _cartItems[cartItemIndex].addAdditional(additional);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return CartProvider(
@@ -105,6 +131,7 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
       removeCartItem: removeCartItem,
       increaseCartItemAmount: increaseCartItemAmount,
       decreaseCartItemAmount: decreaseCartItemAmount,
+      increaseAdditionalCartItemAmount: increaseAdditionalCartItemAmount,
       child: widget.child,
     );
   }
