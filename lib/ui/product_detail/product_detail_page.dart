@@ -5,6 +5,7 @@ import '../../app/constants/app_constants.dart';
 import '../../model/product.dart';
 import '../../util/util.dart';
 import '../../widgets/cart_item_amount.dart';
+import '../cart/cart_page.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key});
@@ -26,7 +27,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           AspectRatio(
             aspectRatio: 3 / 2,
             child: AppCachedImage(
-              imageUrl: '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/200',
+              imageUrl:
+                  '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/200',
               fit: BoxFit.cover,
             ),
           ),
@@ -109,16 +111,20 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               showAppCupertinoDialog(
                                 context: context,
                                 title: '성공',
-                                content: "${product.name} $amount개를 장바구니에 담았습니다.",
+                                content:
+                                    "${product.name} $amount개를 장바구니에 담았습니다.",
                               );
                               CartProvider.of(
                                 context,
                               ).addProductToCart(product, amount);
                             },
                             child: Text(
-                                '장바구니 담기',
-                                style: TextStyle(fontSize: 15,
-                                    fontWeight: FontWeight.bold)),
+                              '장바구니 담기',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(width: 25),
@@ -133,9 +139,12 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               );
                             },
                             child: Text(
-                                '구매하기',
-                                style: TextStyle(fontSize: 15,
-                                    fontWeight: FontWeight.bold)),
+                              '구매하기',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ],
