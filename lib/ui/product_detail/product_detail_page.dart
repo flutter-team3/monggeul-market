@@ -104,29 +104,15 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
+                            showAppCupertinoDialog(
+                              context: context,
+                              title: '성공',
+                              content: "${product.name} $amount개를 장바구니에 담겼습니다.",
+                            );
                             CartProvider.of(
                               context,
                             ).addProductToCart(product, amount);
                           },
-
-                          /*
-                          {
-                            if (CartProvider.of(
-                              context,
-                            ).addProductToCart(product)) {
-                              showAppCupertinoDialog(
-                                context: context,
-                                title: '성공',
-                                content: '상품이 장바구니에 담겼습니다',
-                              );
-                            } else {
-                              showAppCupertinoDialog(
-                                context: context,
-                                title: '실패',
-                                content: '상품은 이미 장바구니에 담겨 있습니다',
-                              );
-                            }
-                          }, */
                           child: Text('장바구니 담기'),
                         ),
                       ),
