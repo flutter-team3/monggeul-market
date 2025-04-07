@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:monggeul_market/app/constants/app_colors.dart';
-import 'package:monggeul_market/model/product.dart';
 import 'package:monggeul_market/provider/product_provider.dart';
 import 'package:monggeul_market/ui/home/widgets/product_list_widget.dart';
 import 'package:monggeul_market/ui/product_register/product_register_page.dart';
