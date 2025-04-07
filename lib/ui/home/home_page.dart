@@ -5,10 +5,16 @@ import 'package:project_name_change/ui/product_register/product_register_page.da
 
 import '../cart/cart_page.dart';
 
-class HomePage extends StatelessWidget {
-  final String title = '상품 리스트';
+class HomePage extends StatefulWidget {
 
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final String title = '상품 리스트';
 
   @override
   Widget build(BuildContext context) {
