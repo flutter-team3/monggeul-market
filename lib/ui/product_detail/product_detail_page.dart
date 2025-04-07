@@ -106,7 +106,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           onPressed: () {
                             CartProvider.of(
                               context,
-                            ).addProductsToCart(product, amount);
+                            ).addProductToCart(product, amount);
                           },
 
                           /*

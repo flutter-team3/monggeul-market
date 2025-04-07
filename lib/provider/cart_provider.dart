@@ -9,8 +9,8 @@ class CartProvider extends InheritedWidget {
   /// 장바구니 총 금액
   final int totalPrice;
 
-  /// 장바구니에 상품 추가, 이미 있으면 false 반환
-  final bool Function(Product) addProductToCart;
+  /// 장바구니에 상품 추가, 이미 있으면 상품 개수 증가
+  final void Function(Product, int) addProductToCart;
 
   /// 장바구니에서 특정 인덱스 상품 삭제
   final void Function(int) removeCartItem;
@@ -20,9 +20,6 @@ class CartProvider extends InheritedWidget {
 
   /// 장바구니 특정 인덱스 상품의 수량을 1개 감소
   final void Function(int) decreaseCartItemAmount;
-
-  /// 장바구니에 상품 추가, 이미 있으면 상품 개수 증가
-  final void Function(Product, int) addProductsToCart;
 
   /// 장바구니 특정 인덱스 상품의 수량을 n개 증가
   final void Function(int, int) increaseAdditionalCartItemAmount;
@@ -36,7 +33,6 @@ class CartProvider extends InheritedWidget {
     required this.removeCartItem,
     required this.increaseCartItemAmount,
     required this.decreaseCartItemAmount,
-    required this.addProductsToCart,
     required this.increaseAdditionalCartItemAmount,
   });
 
@@ -69,19 +65,8 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
   final List<CartItem> _cartItems = [];
   int _totalPrice = 0;
 
-  /// 장바구니에 상품 추가, 이미 있으면 false 반환
-  bool addProductToCart(Product product) {
-    if (_cartItems.any((cartItem) => cartItem.product == product)) {
-      return false;
-    }
-    setState(() {
-      _totalPrice += product.price;
-      _cartItems.add(CartItem(product));
-    });
-    return true;
-  }
-
-  void addProductsToCart(Product product, int additional) {
+  /// 장바구니에 상품 추가, 이미 있으면 수량 추가
+  void addProductToCart(Product product, int additional) {
     final index = _cartItems.indexWhere(
       (cartItem) => cartItem.product == product,
     );
@@ -146,7 +131,6 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
       removeCartItem: removeCartItem,
       increaseCartItemAmount: increaseCartItemAmount,
       decreaseCartItemAmount: decreaseCartItemAmount,
-      addProductsToCart: addProductsToCart,
       increaseAdditionalCartItemAmount: increaseAdditionalCartItemAmount,
       child: widget.child,
     );
