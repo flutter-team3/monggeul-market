@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/model/filter_element.dart';
-import 'package:project_name_change/model/product.dart';
 import 'package:project_name_change/provider/product_provider.dart';
 import 'package:project_name_change/ui/home/widgets/product_list_widget.dart';
 import 'package:project_name_change/ui/product_register/product_register_page.dart';
@@ -10,7 +9,6 @@ import '../cart/cart_page.dart';
 
 class HomePage extends StatelessWidget {
   String title = '상품 리스트';
-  late List<Product> products;
   final TextEditingController _textEditingController = TextEditingController();
   final FilterElement filterElement = FilterElement('', null);
 
