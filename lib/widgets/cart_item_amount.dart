@@ -4,31 +4,45 @@ import '../app/constants/app_colors.dart';
 
 class CartItemAmount extends StatelessWidget {
   final int amount;
+  final void Function() onPlusIconTap;
+  final void Function() onMinusIconTap;
 
-  const CartItemAmount(this.amount, {super.key});
+  const CartItemAmount({
+    required this.amount,
+    required this.onPlusIconTap,
+    required this.onMinusIconTap,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    const double iconSpace = 3;
     return Row(
       children: [
-        getPlusMinusIcon(Icons.remove_circle_outline),
-        SizedBox(width: 3),
+        getPlusMinusIcon(isPlusIcon: false),
+        SizedBox(width: iconSpace),
         Text(
           amount.toString(),
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
-        SizedBox(width: 3),
-        getPlusMinusIcon(Icons.add_circle_outline),
+        SizedBox(width: iconSpace),
+        getPlusMinusIcon(isPlusIcon: true),
       ],
     );
   }
 
-  Widget getPlusMinusIcon(IconData iconData) {
+  Widget getPlusMinusIcon({required bool isPlusIcon}) {
+    IconData iconData =
+        isPlusIcon ? Icons.add_circle_outline : Icons.remove_circle_outline;
     return InkWell(
       onTap: () {
-        // onTap();  // 나중에 로직 구현하기.
+        if (isPlusIcon) {
+          onPlusIconTap();
+        } else {
+          onMinusIconTap();
+        }
       },
-      child: Icon(iconData, size: 29, color: AppColors.plusMinusIcon),
+      child: Icon(iconData, size: 29, color: AppColors.primary),
     );
   }
 }

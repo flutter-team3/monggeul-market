@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_name_change/provider/cart_provider.dart';
 import '../../app/constants/app_constants.dart';
 import '../../model/product.dart';
 import '../../util/util.dart';
@@ -58,7 +59,13 @@ class ProductDetailPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Row(
                     children: [
-                      Expanded(child: CartItemAmount(1)),
+                      Expanded(
+                        child: CartItemAmount(
+                          amount: 1,
+                          onPlusIconTap: () {},
+                          onMinusIconTap: () {},
+                        ),
+                      ),
                       SizedBox(width: 25),
                       Expanded(
                         child: Text(
@@ -80,7 +87,21 @@ class ProductDetailPage extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (CartProvider.of(context).addProductToCart(product)) {
+                              showAppCupertinoDialog(
+                                context: context,
+                                title: '성공',
+                                content: '상품이 장바구니에 담겼습니다',
+                              );
+                            } else {
+                              showAppCupertinoDialog(
+                                context: context,
+                                title: '실패',
+                                content: '상품은 이미 장바구니에 담겨 있습니다',
+                              );
+                            }
+                          },
                           child: Text('장바구니 담기'),
                         ),
                       ),

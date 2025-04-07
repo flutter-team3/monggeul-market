@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:project_name_change/app/constants/app_colors.dart';
 import 'package:project_name_change/model/category.dart';
 import 'package:project_name_change/model/product.dart';
+import 'package:project_name_change/provider/product_provider.dart';
 
 class ProductRegisterPage extends StatefulWidget {
   const ProductRegisterPage({super.key});
@@ -165,14 +166,17 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                 if (areAllFieldsFilled(name, price, description, category)) {
                   showDialog(
                     context: context,
-                    builder: (context) {
+                    builder: (dialogContext) {
                       return AlertDialog(
                         content: Text("상품 등록이 완료되었습니다."),
                         actions: [
                           TextButton(
                             onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context, Product(name: name!, price: price!, description: description!, category: category!));
+                              _addList(context);
+                              Navigator.pop(dialogContext);
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                Navigator.pop(context);
+                              });
                             },
                             child: Text("닫기"),
                           ),
@@ -187,6 +191,11 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
         ),
       ),
     );
+  }
+
+  void _addList(BuildContext context) {
+    final provider = ProductProvider.of(context);
+    provider.addProduct(Product(name: name!, price: price!, description: description!, category: category!));
   }
 
   bool areAllFieldsFilled(String? name, int? price, String? description, Category? category) {
