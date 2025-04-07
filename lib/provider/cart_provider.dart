@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_name_change/model/cart_item.dart';
-import 'package:project_name_change/model/product.dart';
+import 'package:monggeul_market/model/cart_item.dart';
+import 'package:monggeul_market/model/product.dart';
 
 class CartProvider extends InheritedWidget {
   /// 장바구니 상품 목록
@@ -39,13 +39,11 @@ class CartProvider extends InheritedWidget {
   @override
   /// cartItems 개수나 totalPrice가 바뀌면 리빌드 (UI가 그 값에 의존하니까)
   bool updateShouldNotify(covariant CartProvider oldWidget) {
-    return oldWidget.cartItems.length != cartItems.length ||
-        oldWidget.totalPrice != totalPrice;
+    return oldWidget.cartItems.length != cartItems.length || oldWidget.totalPrice != totalPrice;
   }
 
   static CartProvider of(BuildContext context) {
-    final CartProvider? result =
-        context.dependOnInheritedWidgetOfExactType<CartProvider>();
+    final CartProvider? result = context.dependOnInheritedWidgetOfExactType<CartProvider>();
 
     assert(result != null, 'No CartProvider found in context');
     return result!;
@@ -67,9 +65,7 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
 
   /// 장바구니에 상품 추가, 이미 있으면 수량 추가
   void addProductToCart(Product product, int additional) {
-    final index = _cartItems.indexWhere(
-      (cartItem) => cartItem.product == product,
-    );
+    final index = _cartItems.indexWhere((cartItem) => cartItem.product == product);
 
     if (index != -1) {
       setState(() {
@@ -89,9 +85,7 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
   /// 장바구니에서 특정 인덱스 상품 삭제
   void removeCartItem(int cartItemIndex) {
     setState(() {
-      _totalPrice -=
-          _cartItems[cartItemIndex].product.price *
-          _cartItems[cartItemIndex].amount;
+      _totalPrice -= _cartItems[cartItemIndex].product.price * _cartItems[cartItemIndex].amount;
       _cartItems.removeAt(cartItemIndex);
     });
   }

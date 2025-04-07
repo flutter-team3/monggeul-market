@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:project_name_change/app/constants/app_colors.dart';
-import 'package:project_name_change/model/product.dart';
-import 'package:project_name_change/provider/product_provider.dart';
-import 'package:project_name_change/ui/home/widgets/product_list_widget.dart';
-import 'package:project_name_change/ui/product_register/product_register_page.dart';
-import 'package:project_name_change/model/category.dart';
+import 'package:monggeul_market/app/constants/app_colors.dart';
+import 'package:monggeul_market/model/product.dart';
+import 'package:monggeul_market/provider/product_provider.dart';
+import 'package:monggeul_market/ui/home/widgets/product_list_widget.dart';
+import 'package:monggeul_market/ui/product_register/product_register_page.dart';
+import 'package:monggeul_market/model/category.dart';
 
 import '../cart/cart_page.dart';
 
@@ -24,9 +24,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => ProductRegisterPage()),
-          );
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
         },
         child: Icon(Icons.add),
       ),
@@ -38,16 +36,10 @@ class HomePage extends StatelessWidget {
               child: Row(
                 children: [
                   GestureDetector(
-                    child: Text(
-                      '장바구니',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    child: Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold)),
                     onTap: () {
                       Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CartPage()),
-                      );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
                     },
                   ),
                   Spacer(),
@@ -78,12 +70,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: ProductListWidget(),
-        ),
-      ),
+      body: SafeArea(child: Padding(padding: const EdgeInsets.all(20.0), child: ProductListWidget())),
     );
   }
 
@@ -102,11 +89,7 @@ class HomePage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (category != null)
-              Container(
-                margin: EdgeInsets.only(right: 10),
-                child: Image.asset(category!.imgPath, width: 30),
-              ),
+            if (category != null) Container(margin: EdgeInsets.only(right: 10), child: Image.asset(category.imgPath, width: 30)),
             Text(category?.label ?? '전체'),
           ],
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_name_change/model/product.dart';
-import 'package:project_name_change/provider/product_provider.dart';
-import 'package:project_name_change/ui/home/widgets/product_for_list.dart';
+import 'package:monggeul_market/model/product.dart';
+import 'package:monggeul_market/provider/product_provider.dart';
+import 'package:monggeul_market/ui/home/widgets/product_for_list.dart';
 
 class ProductListWidget extends StatelessWidget {
   const ProductListWidget({super.key});
