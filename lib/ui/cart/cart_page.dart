@@ -26,9 +26,9 @@ class CartPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
         centerTitle: true,
-        backgroundColor: AppColors.lightBlue,
+        backgroundColor: Colors.white,
       ),
       body: SafeArea(
         child:
@@ -108,7 +108,7 @@ class CartPage extends StatelessWidget {
                                                   ).removeCartItem(index),
                                               child: Icon(
                                                 Icons.delete,
-                                                color: AppColors.plusMinusIcon,
+                                                color: AppColors.primary,
                                               ),
                                             ),
                                           ),
@@ -155,8 +155,6 @@ class CartPage extends StatelessWidget {
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(0),
                         ),

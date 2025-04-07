@@ -42,7 +42,7 @@ class CartItemAmount extends StatelessWidget {
           onMinusIconTap();
         }
       },
-      child: Icon(iconData, size: 29, color: AppColors.plusMinusIcon),
+      child: Icon(iconData, size: 29, color: AppColors.primary),
     );
   }
 }

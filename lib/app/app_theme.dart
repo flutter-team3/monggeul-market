@@ -12,6 +12,13 @@ class AppTheme {
         brightness: brightness,
       ).copyWith(primary: AppColors.primary),
       highlightColor: AppColors.primary,
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+        ),
+      ),
     );
   }
 

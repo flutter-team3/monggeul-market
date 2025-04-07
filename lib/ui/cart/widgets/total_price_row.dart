@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_name_change/app/constants/app_colors.dart';
 import 'package:project_name_change/util/util.dart';
 
 class TotalPriceRow extends StatelessWidget {
@@ -18,12 +19,12 @@ class TotalPriceRow extends StatelessWidget {
             style: TextStyle(
               fontSize: 21,
               // fontWeight: FontWeight.w600,
-              color: Colors.grey[900],
+              color: AppColors.primary,
             ),
           ),
           Text(
             formatKrw(totalPrice),
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26, color: AppColors.primary),
           ),
         ],
       ),
