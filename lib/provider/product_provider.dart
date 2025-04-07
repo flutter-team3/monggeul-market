@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_name_change/app/constants/app_constants.dart';
-import 'package:project_name_change/model/category.dart';
-import 'package:project_name_change/model/product.dart';
+import 'package:monggeul_market/app/constants/app_constants.dart';
+import 'package:monggeul_market/model/category.dart';
+import 'package:monggeul_market/model/product.dart';
 
 class ProductProvider extends InheritedWidget {
   final List<Product> productList;

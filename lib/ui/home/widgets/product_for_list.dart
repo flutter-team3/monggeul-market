@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_name_change/app/constants/app_constants.dart';
-import 'package:project_name_change/model/product.dart';
-import 'package:project_name_change/ui/product_detail/product_detail_page.dart';
-import 'package:project_name_change/util/util.dart';
+import 'package:monggeul_market/app/constants/app_constants.dart';
+import 'package:monggeul_market/model/product.dart';
+import 'package:monggeul_market/ui/product_detail/product_detail_page.dart';
+import 'package:monggeul_market/util/util.dart';
 
 class ProductForList extends StatelessWidget {
   final Product product;
@@ -14,34 +14,23 @@ class ProductForList extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ProductDetailPage(),
-            settings: RouteSettings(arguments: product),
-          ),
-        );
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductDetailPage(), settings: RouteSettings(arguments: product)));
       },
-      child: Container(
+      child: SizedBox(
         width: double.infinity,
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 80,
               height: 80,
-              child: Image.network(
-                fit: BoxFit.cover,
-                '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/300'
-              ),
+              child: Image.network(fit: BoxFit.cover, '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/300'),
             ),
             SizedBox(width: 10),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 height: 100,
                 // color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: productInformation(),
-                ),
+                child: Padding(padding: const EdgeInsets.all(10.0), child: productInformation()),
               ),
             ),
           ],
@@ -50,27 +39,20 @@ class ProductForList extends StatelessWidget {
     );
   }
 
-  Column productInformation({
-    double nameFontSize = 15,
-    double descriptionFontSize = 12,
-    double priceFontSize = 14,
-  }) {
+  Column productInformation({double nameFontSize = 15, double descriptionFontSize = 12, double priceFontSize = 14}) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
           child: Column(
             children: [
-              Align(alignment: Alignment.centerLeft, child: Text(product.name, style: TextStyle(fontSize: nameFontSize),)),
-              SizedBox(height: 4,),
+              Align(alignment: Alignment.centerLeft, child: Text(product.name, style: TextStyle(fontSize: nameFontSize))),
+              SizedBox(height: 4),
               Align(alignment: Alignment.centerLeft, child: productDescription(descriptionFontSize)),
             ],
           ),
         ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Text(style: TextStyle(fontSize: priceFontSize), formatKrw(product.price)),
-        ),
+        Align(alignment: Alignment.bottomRight, child: Text(style: TextStyle(fontSize: priceFontSize), formatKrw(product.price))),
       ],
     );
   }
@@ -79,10 +61,7 @@ class ProductForList extends StatelessWidget {
     return RichText(
       maxLines: 3,
       overflow: TextOverflow.ellipsis,
-      text: TextSpan(
-        style: TextStyle(color: Colors.black, fontSize: fontSize),
-        text: product.description,
-      ),
+      text: TextSpan(style: TextStyle(color: Colors.black, fontSize: fontSize), text: product.description),
     );
   }
 }

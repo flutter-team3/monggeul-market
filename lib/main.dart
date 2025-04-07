@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_name_change/provider/cart_provider.dart';
-import 'package:project_name_change/provider/product_provider.dart';
-import 'package:project_name_change/ui/home/home_page.dart';
+import 'package:monggeul_market/provider/cart_provider.dart';
+import 'package:monggeul_market/provider/product_provider.dart';
+import 'package:monggeul_market/ui/home/home_page.dart';
 import 'app/app_theme.dart';
 
 void main() {

@@ -1,4 +1,4 @@
-import 'package:project_name_change/model/product.dart';
+import 'package:monggeul_market/model/product.dart';
 
 class CartItem {
   final Product product;
