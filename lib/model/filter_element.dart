@@ -1,4 +1,4 @@
-import 'package:project_name_change/model/category.dart';
+import 'package:monggeul_market/model/category.dart';
 
 class FilterElement {
   String word;
