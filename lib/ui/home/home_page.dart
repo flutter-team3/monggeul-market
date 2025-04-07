@@ -111,6 +111,8 @@ class HomePage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pop();
+        _textEditingController.clear();
+        filterElement.word = '';
         filterElement.category = category;
         provider.filterProduct(filterElement);
       },
