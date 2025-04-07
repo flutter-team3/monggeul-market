@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_name_change/app/constants/app_colors.dart';
 import 'package:project_name_change/model/filter_element.dart';
 import 'package:project_name_change/model/product.dart';
 import 'package:project_name_change/provider/product_provider.dart';
@@ -80,19 +79,23 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               SearchBar(
+                elevation: WidgetStatePropertyAll(0.5),
+                shape: WidgetStatePropertyAll(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)
+                  )),
+                hintText: '검색어를 입력하세요',
                 onChanged: (value) {
-                  filterElement.word = value;
-                  provider.filterProduct(filterElement);
+                  provider.filterProduct(filterElement.setWord(value));
                 },
                 controller: _textEditingController,
                 leading: const Icon(Icons.search),
                 trailing: [
                   Tooltip(
-                    message: 'hi',
+                    message: 'remove text',
                     child: IconButton(onPressed: () {
                       _textEditingController.clear();
-                      filterElement.word = '';
-                      provider.filterProduct(filterElement);
+                      provider.filterProduct(filterElement.resetWord());
                     }, icon: Icon(Icons.highlight_remove)),
                   )
                 ],
@@ -113,9 +116,7 @@ class HomePage extends StatelessWidget {
         title = category == null ? '상품 리스트' : category.label;
         Navigator.of(context).pop();
         _textEditingController.clear();
-        filterElement.word = '';
-        filterElement.category = category;
-        provider.filterProduct(filterElement);
+        provider.filterProduct(filterElement.changeCategory(category));
       },
       behavior: HitTestBehavior.opaque,
       child: Container(color: Colors.amber, margin: EdgeInsets.all(25), child: Text(category?.label ?? '전체')),
