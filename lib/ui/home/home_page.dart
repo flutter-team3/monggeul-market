@@ -8,26 +8,13 @@ import 'package:project_name_change/model/category.dart';
 
 import '../cart/cart_page.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
-  
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
   String title = '상품 리스트';
-  late List<Product> products;
 
-  void onListChanged(List<Product> newProducts){
-    setState(() {
-      products = newProducts;
-    });
-  }
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    products = ProductProvider.of(context).productList;
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -37,11 +24,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => ProductRegisterPage(),
-            ),
-          );
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
         },
         child: Icon(Icons.add),
       ),
@@ -53,17 +36,10 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   GestureDetector(
-                    child: Text(
-                      '장바구니',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    child: Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold)),
                     onTap: () {
                       Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) =>
-                            CartPage()),
-                      );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
                     },
                   ),
                   Spacer(),
@@ -94,12 +70,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: ProductListWidget(products),
-        ),
-      ),
+      body: SafeArea(child: Padding(padding: const EdgeInsets.all(20.0), child: ProductListWidget())),
     );
   }
 
@@ -110,13 +81,9 @@ class _HomePageState extends State<HomePage> {
         title = category.label == '전체' ? '상품 리스트' : category.label;
         Navigator.of(context).pop();
         provider.filterProduct(category);
-        onListChanged(provider.productListFiltered);
       },
       behavior: HitTestBehavior.opaque,
-      child: Container(
-        color: Colors.amber,
-        margin: EdgeInsets.all(25), 
-        child: Text(category.label)
-      ));
+      child: Container(color: Colors.amber, margin: EdgeInsets.all(25), child: Text(category.label)),
+    );
   }
 }

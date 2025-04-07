@@ -10,17 +10,17 @@ class ProductProvider extends InheritedWidget {
   final void Function(Category) filterProduct;
 
   const ProductProvider({
-    super.key, 
-    required super.child, 
-    required this.productList, 
-    required this.addProduct, 
+    super.key,
+    required super.child,
+    required this.productList,
+    required this.addProduct,
     required this.filterProduct,
     required this.productListFiltered,
   });
 
   @override
   bool updateShouldNotify(covariant ProductProvider oldWidget) {
-    return oldWidget.productList != productList || oldWidget.filterProduct != filterProduct;
+    return oldWidget.productList != productList || oldWidget.productListFiltered != productListFiltered;
   }
 
   static ProductProvider of(BuildContext context) {
@@ -51,12 +51,11 @@ class _ProductProviderWrapperState extends State<ProductProviderWrapper> {
     });
   }
 
-  void filterProduct(Category category){
+  void filterProduct(Category category) {
     setState(() {
-      if(category == Category.all){
+      if (category == Category.all) {
         _productsfiltered = _products;
-      }
-      else{
+      } else {
         _productsfiltered = _products.where((product) => product.category == category).toList();
       }
     });
@@ -69,9 +68,9 @@ class _ProductProviderWrapperState extends State<ProductProviderWrapper> {
     return ProductProvider(
       productList: _products,
       addProduct: addProduct,
-      child: widget.child,
       filterProduct: filterProduct,
       productListFiltered: _productsfiltered,
+      child: widget.child,
     );
   }
 }
