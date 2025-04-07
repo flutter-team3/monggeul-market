@@ -77,9 +77,11 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               CartItemAmount(
                                 amount: amount,
                                 onPlusIconTap: () {
-                                  setState(() {
-                                    amount++;
-                                  });
+                                  amount < 99
+                                      ? setState(() {
+                                        amount++;
+                                      })
+                                      : {};
                                 },
                                 onMinusIconTap: () {
                                   amount > 1
