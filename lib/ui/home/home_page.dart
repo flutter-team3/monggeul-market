@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:monggeul_market/app/constants/app_colors.dart';
+import 'package:monggeul_market/model/filter_element.dart';
 import 'package:monggeul_market/model/product.dart';
 import 'package:monggeul_market/provider/product_provider.dart';
 import 'package:monggeul_market/ui/home/widgets/product_list_widget.dart';
@@ -10,21 +11,24 @@ import '../cart/cart_page.dart';
 
 class HomePage extends StatelessWidget {
   String title = '상품 리스트';
+  final TextEditingController _textEditingController = TextEditingController();
+  final FilterElement filterElement = FilterElement('', null);
 
   HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = ProductProvider.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
         centerTitle: true,
-        // backgroundColor: AppColors.primary,
         actions: [],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
+        onPressed: () async {
+          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
+          provider.filterProduct(filterElement);
         },
         child: Icon(Icons.add),
       ),
@@ -70,7 +74,39 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: SafeArea(child: Padding(padding: const EdgeInsets.all(20.0), child: ProductListWidget())),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              SearchBar(
+                elevation: WidgetStatePropertyAll(0.5),
+                shape: WidgetStatePropertyAll(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)
+                  )),
+                hintText: '검색어를 입력하세요',
+                onChanged: (value) {
+                  provider.filterProduct(filterElement.setWord(value));
+                },
+                controller: _textEditingController,
+                leading: const Icon(Icons.search),
+                trailing: [
+                  Tooltip(
+                    message: 'remove text',
+                    child: _textEditingController.text == '' ? null : IconButton(onPressed: () {
+                      _textEditingController.clear();
+                      provider.filterProduct(filterElement.resetWord());
+                    }, icon: Icon(Icons.highlight_remove)),
+                  )
+                ],
+              ),
+              SizedBox(height: 10,),
+              Expanded(child: ProductListWidget()),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -80,7 +116,8 @@ class HomePage extends StatelessWidget {
       onTap: () {
         title = category == null ? '상품 리스트' : category.label;
         Navigator.of(context).pop();
-        provider.filterProduct(category);
+        _textEditingController.clear();
+        provider.filterProduct(filterElement.changeCategory(category));
       },
       behavior: HitTestBehavior.opaque,
       child: Container(
