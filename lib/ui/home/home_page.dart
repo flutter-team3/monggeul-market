@@ -26,8 +26,9 @@ class HomePage extends StatelessWidget {
         actions: [],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
+        onPressed: () async {
+          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
+          provider.filterProduct(filterElement);
         },
         child: Icon(Icons.add),
       ),
