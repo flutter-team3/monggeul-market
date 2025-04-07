@@ -10,10 +10,10 @@ class ProductProvider extends InheritedWidget {
   final void Function(FilterElement) filterProduct;
 
   const ProductProvider({
-    super.key, 
-    required super.child, 
-    required this.productList, 
-    required this.addProduct, 
+    super.key,
+    required super.child,
+    required this.productList,
+    required this.addProduct,
     required this.filterProduct,
     required this.productListFiltered,
   });
@@ -73,9 +73,9 @@ class _ProductProviderWrapperState extends State<ProductProviderWrapper> {
     return ProductProvider(
       productList: _products,
       addProduct: addProduct,
-      child: widget.child,
       filterProduct: filterProduct,
       productListFiltered: _productsfiltered,
+      child: widget.child,
     );
   }
 }
