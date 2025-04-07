@@ -13,6 +13,6 @@ class Product {
     required this.price,
     required this.category,
   }) {
-    imageSeed = name.codeUnits.fold(0, (sum, char) => sum + char) % 100;
+    imageSeed = name.codeUnits.fold(0, (sum, char) => sum + char) % 1000;
   }
 }
