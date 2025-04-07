@@ -1,22 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_colors.dart';
-import 'package:project_name_change/ui/home/widgets/product_list.dart';
+import 'package:project_name_change/model/product.dart';
+import 'package:project_name_change/provider/product_provider.dart';
+import 'package:project_name_change/ui/home/widgets/product_list_widget.dart';
 import 'package:project_name_change/ui/product_register/product_register_page.dart';
+import 'package:project_name_change/model/category.dart';
 
 import '../cart/cart_page.dart';
 
-class HomePage extends StatelessWidget {
-  final String title = '상품 리스트';
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+  
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
-  const HomePage({super.key});
+class _HomePageState extends State<HomePage> {
+  String title = '상품 리스트';
+  late List<Product> products;
+
+  void onListChanged(List<Product> newProducts){
+    setState(() {
+      products = newProducts;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    products = ProductProvider.of(context).productList;
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
         centerTitle: true,
-        backgroundColor: AppColors.primary,
+        // backgroundColor: AppColors.primary,
         actions: [],
       ),
       floatingActionButton: FloatingActionButton(
@@ -55,20 +71,25 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            Column(
-              children: [
-                Divider(),
-                categoryButton('도마뱀'),
-                Divider(),
-                categoryButton('고슴도치'),
-                Divider(),
-                categoryButton('사슴벌레'),
-                Divider(),
-                categoryButton('앵무새'),
-                Divider(),
-                categoryButton('라쿤'),
-                Divider(),
-              ],
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    categoryButton(Category.all, context),
+                    Divider(),
+                    categoryButton(Category.hedgehog, context),
+                    Divider(),
+                    categoryButton(Category.lizard, context),
+                    Divider(),
+                    categoryButton(Category.parrot, context),
+                    Divider(),
+                    categoryButton(Category.raccoon, context),
+                    Divider(),
+                    categoryButton(Category.stagBeetle, context),
+                    Divider(),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
@@ -76,13 +97,26 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: ProductList(),
+          child: ProductListWidget(products),
         ),
       ),
     );
   }
 
-  Widget categoryButton(String text) {
-    return Container(margin: EdgeInsets.all(25), child: Text(text));
+  Widget categoryButton(Category category, BuildContext context) {
+    final provider = ProductProvider.of(context);
+    return GestureDetector(
+      onTap: () {
+        title = category.label == '전체' ? '상품 리스트' : category.label;
+        Navigator.of(context).pop();
+        provider.filterProduct(category);
+        onListChanged(provider.productListFiltered);
+      },
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        color: Colors.amber,
+        margin: EdgeInsets.all(25), 
+        child: Text(category.label)
+      ));
   }
 }

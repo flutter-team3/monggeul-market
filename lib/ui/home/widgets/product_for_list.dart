@@ -5,9 +5,9 @@ import 'package:project_name_change/ui/product_detail/product_detail_page.dart';
 import 'package:project_name_change/util/util.dart';
 
 class ProductForList extends StatelessWidget {
-  Product product;
+  final Product product;
 
-  ProductForList(this.product, {super.key});
+  const ProductForList(this.product, {super.key});
 
   @override
   Widget build(BuildContext context) {
