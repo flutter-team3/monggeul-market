@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_constants.dart';
+import 'package:project_name_change/model/category.dart';
 import 'package:project_name_change/model/product.dart';
 
 class ProductProvider extends InheritedWidget {
   final List<Product> productList;
+  final List<Product> productListFiltered;
   final void Function(Product) addProduct;
+  final void Function(Category) filterProduct;
 
-  const ProductProvider({super.key, required super.child, required this.productList, required this.addProduct});
+  const ProductProvider({
+    super.key, 
+    required super.child, 
+    required this.productList, 
+    required this.addProduct, 
+    required this.filterProduct,
+    required this.productListFiltered,
+  });
 
   @override
   bool updateShouldNotify(covariant ProductProvider oldWidget) {
-    return oldWidget.productList != productList;
+    return oldWidget.productList != productList || oldWidget.filterProduct != filterProduct;
   }
 
   static ProductProvider of(BuildContext context) {
@@ -32,6 +42,7 @@ class ProductProviderWrapper extends StatefulWidget {
 
 class _ProductProviderWrapperState extends State<ProductProviderWrapper> {
   List<Product> _products = AppConstants.productList;
+  List<Product> _productsfiltered = AppConstants.productList;
 
   //상품 추가
   void addProduct(Product product) {
@@ -40,10 +51,27 @@ class _ProductProviderWrapperState extends State<ProductProviderWrapper> {
     });
   }
 
+  void filterProduct(Category category){
+    setState(() {
+      if(category == Category.all){
+        _productsfiltered = _products;
+      }
+      else{
+        _productsfiltered = _products.where((product) => product.category == category).toList();
+      }
+    });
+  }
+
   //기능 추가시 함수 작성 및 생성자에 매개변수 추가
 
   @override
   Widget build(BuildContext context) {
-    return ProductProvider(productList: _products, addProduct: addProduct, child: widget.child);
+    return ProductProvider(
+      productList: _products,
+      addProduct: addProduct,
+      child: widget.child,
+      filterProduct: filterProduct,
+      productListFiltered: _productsfiltered,
+    );
   }
 }
