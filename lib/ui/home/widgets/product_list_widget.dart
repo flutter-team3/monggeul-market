@@ -9,7 +9,7 @@ class ProductListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final productList = ProductProvider.of(context).productList;
+    final products = ProductProvider.of(context).productListFiltered;
     return ListView.separated(
       separatorBuilder: (context, int index) => const Divider(),
       itemCount: products.length,
