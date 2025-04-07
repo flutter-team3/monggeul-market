@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_colors.dart';
-import 'package:project_name_change/ui/home/widgets/product_list.dart';
+import 'package:project_name_change/model/product_list.dart';
+import 'package:project_name_change/provider/product_provider.dart';
+import 'package:project_name_change/ui/home/widgets/product_list_widget.dart';
 import 'package:project_name_change/ui/product_register/product_register_page.dart';
 
 import '../cart/cart_page.dart';
 
 class HomePage extends StatefulWidget {
 
-  const HomePage({super.key});
-
+  HomePage({super.key});
+  
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -18,6 +20,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    ProductList productList = ProductList(ProductProvider.of(context).productList);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -82,7 +85,7 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: ProductList(),
+          child: ProductListWidget(productList.products),
         ),
       ),
     );
