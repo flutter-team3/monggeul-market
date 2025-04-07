@@ -107,7 +107,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             showAppCupertinoDialog(
                               context: context,
                               title: '성공',
-                              content: "${product.name} $amount개를 장바구니에 담겼습니다.",
+                              content: "${product.name} $amount개를 장바구니에 담았습니다.",
                             );
                             CartProvider.of(
                               context,
