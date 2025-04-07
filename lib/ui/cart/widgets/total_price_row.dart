@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_name_change/app/constants/app_colors.dart';
-import 'package:project_name_change/util/util.dart';
+import 'package:monggeul_market/app/constants/app_colors.dart';
+import 'package:monggeul_market/util/util.dart';
 
 class TotalPriceRow extends StatelessWidget {
   final int totalPrice;
@@ -22,10 +22,7 @@ class TotalPriceRow extends StatelessWidget {
               color: Colors.grey[900],
             ),
           ),
-          Text(
-            formatKrw(totalPrice),
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26, color: AppColors.primary),
-          ),
+          Text(formatKrw(totalPrice), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26, color: AppColors.primary)),
         ],
       ),
     );

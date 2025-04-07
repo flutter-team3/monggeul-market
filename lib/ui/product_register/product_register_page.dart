@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:project_name_change/app/constants/app_colors.dart';
-import 'package:project_name_change/model/category.dart';
-import 'package:project_name_change/model/product.dart';
-import 'package:project_name_change/provider/product_provider.dart';
-import 'package:project_name_change/util/util.dart';
+import 'package:monggeul_market/app/constants/app_colors.dart';
+import 'package:monggeul_market/model/category.dart';
+import 'package:monggeul_market/model/product.dart';
+import 'package:monggeul_market/provider/product_provider.dart';
+import 'package:monggeul_market/util/util.dart';
 
 class ProductRegisterPage extends StatefulWidget {
   const ProductRegisterPage({super.key});

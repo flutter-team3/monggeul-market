@@ -1,4 +1,4 @@
-package com.flutterteam3.project_name_change
+package com.flutterteam3.monggeul_market
 
 import io.flutter.embedding.android.FlutterActivity
 
