@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/provider/cart_provider.dart';
+import 'package:project_name_change/widgets/app_cached_image.dart';
 import '../../app/constants/app_constants.dart';
 import '../../model/product.dart';
 import '../../util/util.dart';
@@ -24,8 +25,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
         children: [
           AspectRatio(
             aspectRatio: 3 / 2,
-            child: Image.network(
-              '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/200',
+            child: AppCachedImage(
+              imageUrl: '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/200',
               fit: BoxFit.cover,
             ),
           ),
