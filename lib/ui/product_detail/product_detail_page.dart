@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:project_name_change/app/constants/app_colors.dart';
 import 'package:project_name_change/provider/cart_provider.dart';
 import 'package:project_name_change/widgets/app_cached_image.dart';
 import '../../app/constants/app_constants.dart';
 import '../../model/product.dart';
 import '../../util/util.dart';
 import '../../widgets/cart_item_amount.dart';
+import '../cart/cart_page.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key});
@@ -26,7 +28,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
           AspectRatio(
             aspectRatio: 3 / 2,
             child: AppCachedImage(
-              imageUrl: '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/200',
+              imageUrl:
+                  '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/200',
               fit: BoxFit.cover,
             ),
           ),
@@ -57,31 +60,37 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
           ),
           Material(
-            color: Colors.grey[300],
             child: SizedBox(
               height: 150,
               child: Column(
                 children: [
-                  SizedBox(height: 15),
+                  Divider(thickness: 1),
+                  SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       children: [
                         Expanded(
-                          child: CartItemAmount(
-                            amount: amount,
-                            onPlusIconTap: () {
-                              setState(() {
-                                amount++;
-                              });
-                            },
-                            onMinusIconTap: () {
-                              amount > 1
-                                  ? setState(() {
-                                    amount--;
-                                  })
-                                  : {};
-                            },
+                          child: Row(
+                            children: [
+                              Expanded(child: SizedBox()),
+                              CartItemAmount(
+                                amount: amount,
+                                onPlusIconTap: () {
+                                  setState(() {
+                                    amount++;
+                                  });
+                                },
+                                onMinusIconTap: () {
+                                  amount > 1
+                                      ? setState(() {
+                                        amount--;
+                                      })
+                                      : {};
+                                },
+                              ),
+                              Expanded(child: SizedBox()),
+                            ],
                           ),
                         ),
                         SizedBox(width: 25),
@@ -109,33 +118,57 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               showAppCupertinoDialog(
                                 context: context,
                                 title: '성공',
-                                content: "${product.name} $amount개를 장바구니에 담았습니다.",
+                                content:
+                                    "${product.name} $amount개를 장바구니에 담았습니다.",
                               );
                               CartProvider.of(
                                 context,
                               ).addProductToCart(product, amount);
                             },
                             child: Text(
-                                '장바구니 담기',
-                                style: TextStyle(fontSize: 15,
-                                    fontWeight: FontWeight.bold)),
+                              '장바구니 담기',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                         SizedBox(width: 25),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: () {
-                              showAppCupertinoDialog(
+                            onPressed: () async {
+                              final String?
+                              result = await showAppCupertinoDialog(
                                 showCancel: true,
                                 context: context,
                                 title: '구매 확인',
-                                content: '${product.name} $amount개 구매하시겠습니까?',
+                                content:
+                                    '${product.name} $amount개 구매하시겠습니까? 장바구니로 이동합니다.',
                               );
+                              if (!context.mounted) {
+                                return;
+                              } // await 후에 context 안전한 사용
+                              if (result == '확인') {
+                                CartProvider.of(
+                                  context,
+                                ).addProductToCart(product, amount);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CartPage(),
+                                  ),
+                                );
+                              }
                             },
+
                             child: Text(
-                                '구매하기',
-                                style: TextStyle(fontSize: 15,
-                                    fontWeight: FontWeight.bold)),
+                              '구매하기',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ],
