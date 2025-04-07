@@ -65,7 +65,10 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                                           ),
                                           child: Text(
                                             value.label,
-                                            style: TextStyle(color: Colors.black, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
+                                            style: TextStyle(
+                                              color: isSelected ? Colors.white : Colors.black,
+                                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -160,7 +163,9 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                 color: areAllFieldsFilled(name, price, description, category) ? AppColors.primary : Colors.grey[300],
                 height: 70,
                 width: double.infinity,
-                child: Center(child: Text("등록하기")),
+                child: Center(
+                  child: Text("등록하기", style: TextStyle(color: areAllFieldsFilled(name, price, description, category) ? Colors.white : Colors.black)),
+                ),
               ),
               onTap: () {
                 if (areAllFieldsFilled(name, price, description, category)) {
