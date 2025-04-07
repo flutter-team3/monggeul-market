@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:project_name_change/app/constants/app_colors.dart';
-import 'package:project_name_change/app/constants/app_constants.dart';
 import 'package:project_name_change/ui/home/widgets/product_list.dart';
 import 'package:project_name_change/ui/product_register/product_register_page.dart';
 
-import '../../model/cart_item.dart';
 import '../cart/cart_page.dart';
 
 class HomePage extends StatelessWidget {
-  String title = '상품 리스트';
+  final String title = '상품 리스트';
 
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,17 +42,11 @@ class HomePage extends StatelessWidget {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     onTap: () {
+                      Navigator.of(context).pop();
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder:
-                              (context) => CartPage(
-                                cartItems:
-                                    AppConstants.productList
-                                        .map((product) => CartItem(product))
-                                        .toList(),
-                              ),
-                        ),
+                        MaterialPageRoute(builder: (context) =>
+                            CartPage()),
                       );
                     },
                   ),

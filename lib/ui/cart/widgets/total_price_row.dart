@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:project_name_change/util/util.dart';
 
 class TotalPriceRow extends StatelessWidget {
-  const TotalPriceRow({super.key});
+  final int totalPrice;
+
+  const TotalPriceRow(this.totalPrice, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class TotalPriceRow extends StatelessWidget {
             ),
           ),
           Text(
-            '0원',
+            formatKrw(totalPrice),
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
           ),
         ],
