@@ -78,10 +78,10 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
       });
     } else {
       setState(() {
-        _totalPrice += product.price * additional;
-        final newCartItem = CartItem(product);
-        newCartItem.addAdditional(additional - 1);
-        _cartItems.add(newCartItem);
+        setState(() {
+          _totalPrice += product.price * additional;
+          _cartItems.add(CartItem(product, amount: additional));
+        });
       });
     }
   }

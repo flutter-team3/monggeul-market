@@ -2,10 +2,10 @@ import 'package:project_name_change/model/product.dart';
 
 class CartItem {
   final Product product;
-  int _amount = 1;
+  int _amount;
   int get amount => _amount;
 
-  CartItem(this.product);
+  CartItem(this.product, {required amount}) : _amount = amount;
 
   /// Adds one product to the CartItem.
   void addOne() {
