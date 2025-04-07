@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> {
     final provider = ProductProvider.of(context);
     return GestureDetector(
       onTap: () {
+        Navigator.of(context).pop();
         provider.filterProduct(category);
         onListChanged(provider.productListFiltered);
       },
