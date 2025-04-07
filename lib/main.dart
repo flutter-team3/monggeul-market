@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_name_change/provider/cart_provider.dart';
 import 'package:project_name_change/provider/product_provider.dart';
 import 'package:project_name_change/ui/home/home_page.dart';
 import 'app/app_theme.dart';
@@ -12,13 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ProductProviderWrapper(
-      child: MaterialApp(
-        title: '몽글마켓',
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.system,
-        theme: AppTheme.buildTheme(),
-        home: HomePage(),
+    return CartProviderWrapper(
+      child: ProductProviderWrapper(
+        child: MaterialApp(
+          title: '몽글마켓',
+          debugShowCheckedModeBanner: false,
+          themeMode: ThemeMode.system,
+          theme: AppTheme.buildTheme(),
+          home: HomePage(),
+        ),
       ),
     );
   }

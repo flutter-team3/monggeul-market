@@ -4,7 +4,7 @@ import 'package:project_name_change/model/product.dart';
 
 class ProductProvider extends InheritedWidget {
   final List<Product> productList;
-  final Function(Product) addProduct;
+  final void Function(Product) addProduct;
 
   const ProductProvider({super.key, required super.child, required this.productList, required this.addProduct});
 
@@ -27,7 +27,7 @@ class ProductProviderWrapper extends StatefulWidget {
   const ProductProviderWrapper({super.key, required this.child});
 
   @override
-  _ProductProviderWrapperState createState() => _ProductProviderWrapperState();
+  State<ProductProviderWrapper> createState() => _ProductProviderWrapperState();
 }
 
 class _ProductProviderWrapperState extends State<ProductProviderWrapper> {
