@@ -18,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   String title = '상품 리스트';
   late List<Product> products;
+  final TextEditingController _textEditingController = TextEditingController();
 
   void onListChanged(List<Product> newProducts){
     setState(() {
@@ -100,11 +101,17 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               SearchBar(
+                onChanged: (value) {
+                  
+                },
+                controller: _textEditingController,
                 leading: const Icon(Icons.search),
                 trailing: [
                   Tooltip(
                     message: 'hi',
-                    child: IconButton(onPressed: () {}, icon: Icon(Icons.highlight_remove)),
+                    child: IconButton(onPressed: () {
+                      _textEditingController.clear();
+                    }, icon: Icon(Icons.highlight_remove)),
                   )
                 ],
               ),
