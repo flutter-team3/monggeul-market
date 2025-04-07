@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_name_change/app/constants/app_colors.dart';
 import 'package:project_name_change/provider/cart_provider.dart';
 import 'package:project_name_change/widgets/app_cached_image.dart';
 import '../../app/constants/app_constants.dart';
@@ -59,31 +60,37 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
             ),
           ),
           Material(
-            color: Colors.grey[300],
             child: SizedBox(
               height: 150,
               child: Column(
                 children: [
-                  SizedBox(height: 15),
+                  Divider(thickness: 1),
+                  SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
                       children: [
                         Expanded(
-                          child: CartItemAmount(
-                            amount: amount,
-                            onPlusIconTap: () {
-                              setState(() {
-                                amount++;
-                              });
-                            },
-                            onMinusIconTap: () {
-                              amount > 1
-                                  ? setState(() {
-                                    amount--;
-                                  })
-                                  : {};
-                            },
+                          child: Row(
+                            children: [
+                              Expanded(child: SizedBox()),
+                              CartItemAmount(
+                                amount: amount,
+                                onPlusIconTap: () {
+                                  setState(() {
+                                    amount++;
+                                  });
+                                },
+                                onMinusIconTap: () {
+                                  amount > 1
+                                      ? setState(() {
+                                        amount--;
+                                      })
+                                      : {};
+                                },
+                              ),
+                              Expanded(child: SizedBox()),
+                            ],
                           ),
                         ),
                         SizedBox(width: 25),
