@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monggeul_market/app/constants/app_colors.dart';
 import 'package:monggeul_market/app/constants/app_constants.dart';
 import 'package:monggeul_market/model/product.dart';
 import 'package:monggeul_market/ui/product_detail/product_detail_page.dart';
@@ -16,11 +17,16 @@ class ProductForList extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductDetailPage(), settings: RouteSettings(arguments: product)));
       },
-      child: SizedBox(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(
+            color: AppColors.primary,
+          ))
+        ),
         width: double.infinity,
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: 80,
               height: 80,
               child: ClipRRect(
