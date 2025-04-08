@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:monggeul_market/app/constants/app_colors.dart';
 import 'package:monggeul_market/model/filter_element.dart';
 import 'package:monggeul_market/provider/product_provider.dart';
 import 'package:monggeul_market/ui/home/widgets/product_list_widget.dart';
@@ -29,6 +30,8 @@ class HomePage extends StatelessWidget {
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.primary,
+        foregroundColor: Colors.white,
         onPressed: () async {
           await Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
           provider.filterProduct(filterElement);
