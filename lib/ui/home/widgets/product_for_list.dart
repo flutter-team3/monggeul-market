@@ -4,6 +4,7 @@ import 'package:monggeul_market/app/constants/app_constants.dart';
 import 'package:monggeul_market/model/product.dart';
 import 'package:monggeul_market/ui/product_detail/product_detail_page.dart';
 import 'package:monggeul_market/util/util.dart';
+import 'package:monggeul_market/widgets/app_cached_image.dart';
 
 class ProductForList extends StatelessWidget {
   final Product product;
@@ -34,9 +35,9 @@ class ProductForList extends StatelessWidget {
               height: 80,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network(
+                child: AppCachedImage(
                   fit: BoxFit.cover,
-                  '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/300',
+                  imageUrl: '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/300',
                 ),
               ),
             ),
