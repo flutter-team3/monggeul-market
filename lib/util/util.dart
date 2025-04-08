@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 /// 예: formatKrw(15000) → ₩15,000
 String formatKrw(int number) {
   final formatCurrency = NumberFormat.currency(locale: 'ko_KR', symbol: '');
-  return '${formatCurrency.format(number)}원';
+  return number > 0 ? '${formatCurrency.format(number)}원' : '${formatCurrency.format(number)}원(무료)';
 }
 
 /// 앱 팝업 표시
