@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:monggeul_market/app/constants/app_colors.dart';
 import 'package:monggeul_market/provider/cart_provider.dart';
 import 'package:monggeul_market/widgets/app_cached_image.dart';
 import '../../app/constants/app_constants.dart';

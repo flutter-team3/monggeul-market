@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'app_colors.dart';
-
 class AppStyles {
   //dimensions
   static const double mediumDimension = 24;
