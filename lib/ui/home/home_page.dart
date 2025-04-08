@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
         child: Icon(Icons.add),
       ),
       endDrawer: Drawer(
-        backgroundColor: const Color.fromARGB(255, 252, 243, 231),
+        backgroundColor: AppColors.newBackground,
         width: 280,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 35),
