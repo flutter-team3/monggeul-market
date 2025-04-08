@@ -7,7 +7,6 @@ import 'package:monggeul_market/ui/home/widgets/product_list_widget.dart';
 import 'package:monggeul_market/ui/product_register/product_register_page.dart';
 import 'package:monggeul_market/model/category.dart';
 
-import '../../app/constants/app_colors.dart';
 import '../cart/cart_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -21,7 +20,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = ProductProvider.of(context);
     return Scaffold(
-      backgroundColor: AppColors.newBackground,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         scrolledUnderElevation: 0,
