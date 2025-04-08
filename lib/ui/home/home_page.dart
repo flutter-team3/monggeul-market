@@ -7,7 +7,6 @@ import 'package:monggeul_market/ui/home/widgets/product_list_widget.dart';
 import 'package:monggeul_market/ui/product_register/product_register_page.dart';
 import 'package:monggeul_market/model/category.dart';
 
-import '../../app/constants/app_colors.dart';
 import '../cart/cart_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -35,9 +34,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: AppColors.primary, //Color.fromRGBO(254, 252, 248, 1),
         foregroundColor: Colors.white,
         onPressed: () async {
-          await Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => ProductRegisterPage()),
-          );
+          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
           provider.filterProduct(filterElement);
         },
         child: Icon(Icons.add, size: 27),
@@ -54,32 +51,14 @@ class HomePage extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     Navigator.of(context).pop();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CartPage()),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        children: [
-                          SizedBox(height: 3),
-                          Text(
-                            '장바구니',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
+                      Column(children: [SizedBox(height: 3), Text('장바구니', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))]),
                       SizedBox(width: 20),
-                      Image.asset(
-                        'assets/images/shopping_cart.png',
-                        width: 25,
-                        height: 25,
-                      ),
+                      Image.asset('assets/images/shopping_cart.png', width: 25, height: 25),
                     ],
                   ),
                 ),
@@ -118,15 +97,9 @@ class HomePage extends StatelessWidget {
             children: [
               SearchBar(
                 elevation: WidgetStatePropertyAll(0.5),
-                shape: WidgetStatePropertyAll(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+                shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                 hintText: '검색어를 입력하세요',
-                backgroundColor: const WidgetStatePropertyAll(
-                  Color.fromRGBO(254, 252, 248, 1),
-                ),
+                backgroundColor: const WidgetStatePropertyAll(Color.fromRGBO(254, 252, 248, 1)),
                 onChanged: (value) {
                   provider.filterProduct(filterElement.setWord(value));
                 },
@@ -141,9 +114,7 @@ class HomePage extends StatelessWidget {
                             : IconButton(
                               onPressed: () {
                                 _textEditingController.clear();
-                                provider.filterProduct(
-                                  filterElement.resetWord(),
-                                );
+                                provider.filterProduct(filterElement.resetWord());
                               },
                               icon: Icon(Icons.highlight_remove),
                             ),
@@ -175,15 +146,8 @@ class HomePage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (category != null)
-              Container(
-                margin: EdgeInsets.only(right: 10),
-                child: Image.asset(category.imgPath, width: 30),
-              ),
-            Text(
-              category?.label ?? '전체 상품 보기',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
+            if (category != null) Container(margin: EdgeInsets.only(right: 10), child: Image.asset(category.imgPath, width: 30)),
+            Text(category?.label ?? '전체 상품 보기', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           ],
         ),
       ),

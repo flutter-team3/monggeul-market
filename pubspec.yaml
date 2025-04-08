@@ -37,9 +37,10 @@ flutter:
 #     - images/a_dot_burr.jpeg
 
 flutter_native_splash:
-  color: "#F8F4E1"
+  color: "#FCF3E7"
   android_12:
-    color: "#F8F4E1"
-  color_ios: "#F8F4E1"
-  color_dark_ios: "#F8F4E1"
+    color: "#FCF3E7"
+  color_ios: "#FCF3E7"
+  color_dark_ios: "#FCF3E7"
   image: "assets/images/ios_splash_icon.png"
+  
