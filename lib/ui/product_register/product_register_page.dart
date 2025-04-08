@@ -191,8 +191,10 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
 
                   String? result = await showAppCupertinoDialog(context: context, title: '성공', content: "상품 등록이 완료되었습니다.");
                   if (result == '확인') {
-                    Navigator.pop(context); // ✅ 이제 안전
+                    Navigator.pop(context);
                   }
+                } else {
+                  await showAppCupertinoDialog(context: context, title: '실패', content: "입력하지 않은 값이 있습니다.");
                 }
               },
             ),
