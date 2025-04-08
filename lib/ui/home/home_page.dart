@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:monggeul_market/app/constants/app_colors.dart';
 import 'package:monggeul_market/model/filter_element.dart';
 import 'package:monggeul_market/provider/product_provider.dart';
 import 'package:monggeul_market/ui/home/widgets/product_list_widget.dart';
@@ -19,16 +21,26 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = ProductProvider.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text(title), centerTitle: true, actions: []),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        scrolledUnderElevation: 0,
+        title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        actions: [],
+        //상단바 색상
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+      ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromRGBO(254, 252, 248, 1),
+        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(35))),
+        backgroundColor: AppColors.primary, //Color.fromRGBO(254, 252, 248, 1),
+        foregroundColor: Colors.white,
         onPressed: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => ProductRegisterPage()),
           );
           provider.filterProduct(filterElement);
         },
-        child: Icon(Icons.add),
+        child: Icon(Icons.add, size: 27),
       ),
       endDrawer: Drawer(
         backgroundColor: AppColors.newBackground,

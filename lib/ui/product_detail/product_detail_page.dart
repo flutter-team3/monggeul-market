@@ -17,12 +17,16 @@ class ProductDetailPage extends StatefulWidget {
 
 class _ProductDetailPageState extends State<ProductDetailPage> {
   int amount = 1;
+
   @override
   Widget build(BuildContext context) {
     final product = ModalRoute.of(context)!.settings.arguments as Product;
 
     return Scaffold(
-      appBar: AppBar(title: Text('제품 상세')),
+      appBar: AppBar(
+        title: Text('제품 상세', style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+      ),
       body: Column(
         children: [
           AspectRatio(
