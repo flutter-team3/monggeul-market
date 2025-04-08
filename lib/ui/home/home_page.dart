@@ -40,7 +40,10 @@ class HomePage extends StatelessWidget {
                   GestureDetector(
                     child: Text(
                       '장바구니',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     onTap: () {
                       Navigator.of(context).pop();
@@ -51,7 +54,11 @@ class HomePage extends StatelessWidget {
                     },
                   ),
                   Spacer(),
-                  Text('찜리스트'),
+                  Image.asset(
+                    'assets/images/shopping_cart.png',
+                    width: 30,
+                    height: 30,
+                  ),
                 ],
               ),
             ),
@@ -59,6 +66,7 @@ class HomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    Divider(),
                     categoryButton(null, context),
                     Divider(),
                     categoryButton(Category.hedgehog, context),
@@ -107,7 +115,10 @@ class HomePage extends StatelessWidget {
                 margin: EdgeInsets.only(right: 10),
                 child: Image.asset(category!.imgPath, width: 30),
               ),
-            Text(category?.label ?? '전체'),
+            Text(
+              category?.label ?? '전체',
+              style: TextStyle(fontSize: category?.label == null ? 18 : 15),
+            ),
           ],
         ),
       ),
