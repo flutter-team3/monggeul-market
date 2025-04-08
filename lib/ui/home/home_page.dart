@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:monggeul_market/app/constants/app_colors.dart';
 import 'package:monggeul_market/model/filter_element.dart';
 import 'package:monggeul_market/provider/product_provider.dart';
 import 'package:monggeul_market/ui/home/widgets/product_list_widget.dart';
@@ -19,13 +21,20 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = ProductProvider.of(context);
     return Scaffold(
-      appBar: AppBar(title: Text(title), centerTitle: true, actions: []),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        scrolledUnderElevation: 0,
+        title: Text(title),
+        centerTitle: true,
+        actions: [],
+        //상단바 색상
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color.fromRGBO(254, 252, 248, 1),
+
         onPressed: () async {
-          await Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => ProductRegisterPage()),
-          );
+          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
           provider.filterProduct(filterElement);
         },
         child: Icon(Icons.add),
@@ -42,32 +51,14 @@ class HomePage extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     Navigator.of(context).pop();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CartPage()),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        children: [
-                          SizedBox(height: 3),
-                          Text(
-                            '장바구니',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
+                      Column(children: [SizedBox(height: 3), Text('장바구니', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))]),
                       SizedBox(width: 20),
-                      Image.asset(
-                        'assets/images/shopping_cart.png',
-                        width: 25,
-                        height: 25,
-                      ),
+                      Image.asset('assets/images/shopping_cart.png', width: 25, height: 25),
                     ],
                   ),
                 ),
@@ -106,15 +97,9 @@ class HomePage extends StatelessWidget {
             children: [
               SearchBar(
                 elevation: WidgetStatePropertyAll(0.5),
-                shape: WidgetStatePropertyAll(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
+                shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                 hintText: '검색어를 입력하세요',
-                backgroundColor: const WidgetStatePropertyAll(
-                  Color.fromRGBO(254, 252, 248, 1),
-                ),
+                backgroundColor: const WidgetStatePropertyAll(Color.fromRGBO(254, 252, 248, 1)),
                 onChanged: (value) {
                   provider.filterProduct(filterElement.setWord(value));
                 },
@@ -129,9 +114,7 @@ class HomePage extends StatelessWidget {
                             : IconButton(
                               onPressed: () {
                                 _textEditingController.clear();
-                                provider.filterProduct(
-                                  filterElement.resetWord(),
-                                );
+                                provider.filterProduct(filterElement.resetWord());
                               },
                               icon: Icon(Icons.highlight_remove),
                             ),
@@ -163,15 +146,8 @@ class HomePage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (category != null)
-              Container(
-                margin: EdgeInsets.only(right: 10),
-                child: Image.asset(category.imgPath, width: 30),
-              ),
-            Text(
-              category?.label ?? '전체 상품 보기',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
+            if (category != null) Container(margin: EdgeInsets.only(right: 10), child: Image.asset(category.imgPath, width: 30)),
+            Text(category?.label ?? '전체 상품 보기', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           ],
         ),
       ),

@@ -24,12 +24,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<CartItem> cartItems = CartProvider.of(context).cartItems;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
-        centerTitle: true,
-        backgroundColor: Colors.white,
-      ),
+      appBar: AppBar(title: Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)), centerTitle: true),
       body: SafeArea(
         child:
             cartItems.isEmpty
