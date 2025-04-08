@@ -145,7 +145,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                         children: [
                           Text("상품 설명", style: TextStyle(fontWeight: FontWeight.bold)),
                           TextField(
-                            maxLength: 200,
+                            maxLength: 500,
                             onChanged: (value) {
                               setState(() {
                                 description = value;
