@@ -31,7 +31,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         scrolledUnderElevation: 0,
-        title: const Text("상품 등록"),
+        title: const Text("상품 등록", style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
