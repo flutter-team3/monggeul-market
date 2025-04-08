@@ -16,17 +16,10 @@ class ProductForList extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => ProductDetailPage(),
-            settings: RouteSettings(arguments: product),
-          ),
-        );
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductDetailPage(), settings: RouteSettings(arguments: product)));
       },
       child: Container(
-        decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: AppColors.primary)),
-        ),
+        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: AppColors.primary))),
         width: double.infinity,
         child: Row(
           children: [
@@ -35,10 +28,7 @@ class ProductForList extends StatelessWidget {
               height: 80,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: AppCachedImage(
-                  fit: BoxFit.cover,
-                  imageUrl: '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/300',
-                ),
+                child: AppCachedImage(fit: BoxFit.cover, imageUrl: '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/300'),
               ),
             ),
             SizedBox(width: 10),
@@ -46,10 +36,7 @@ class ProductForList extends StatelessWidget {
               child: SizedBox(
                 height: 100,
                 // color: Colors.white,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: productInformation(),
-                ),
+                child: Padding(padding: const EdgeInsets.all(10.0), child: productInformation()),
               ),
             ),
           ],
@@ -58,12 +45,7 @@ class ProductForList extends StatelessWidget {
     );
   }
 
-  Column productInformation({
-    double nameFontSize = 15,
-    double descriptionFontSize = 12,
-    double priceFontSize = 14,
-    double categoryFontSize = 12,
-  }) {
+  Column productInformation({double nameFontSize = 15, double descriptionFontSize = 12, double priceFontSize = 14, double categoryFontSize = 12}) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -73,15 +55,14 @@ class ProductForList extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   product.name,
                   style: TextStyle(fontSize: nameFontSize, fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(height: 4),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: productDescription(descriptionFontSize),
-              ),
+              Align(alignment: Alignment.centerLeft, child: productDescription(descriptionFontSize)),
             ],
           ),
         ),
@@ -89,14 +70,8 @@ class ProductForList extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              style: TextStyle(fontSize: categoryFontSize),
-              '#${product.category.label}',
-            ),
-            Text(
-              style: TextStyle(fontSize: priceFontSize),
-              formatKrw(product.price),
-            ),
+            Text(style: TextStyle(fontSize: categoryFontSize), '#${product.category.label}'),
+            Text(style: TextStyle(fontSize: priceFontSize), formatKrw(product.price)),
           ],
         ),
       ],
@@ -107,10 +82,7 @@ class ProductForList extends StatelessWidget {
     return RichText(
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
-      text: TextSpan(
-        style: TextStyle(color: Colors.black, fontSize: fontSize),
-        text: product.description,
-      ),
+      text: TextSpan(style: TextStyle(color: Colors.black, fontSize: fontSize), text: product.description),
     );
   }
 }
