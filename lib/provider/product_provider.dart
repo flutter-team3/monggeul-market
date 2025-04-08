@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:monggeul_market/app/constants/app_constants.dart';
-import 'package:monggeul_market/model/category.dart';
+import 'package:monggeul_market/model/filter_element.dart';
 import 'package:monggeul_market/model/product.dart';
 
 class ProductProvider extends InheritedWidget {
   final List<Product> productList;
   final List<Product> productListFiltered;
   final void Function(Product) addProduct;
-  final void Function(Category?) filterProduct;
+  final void Function(FilterElement) filterProduct;
 
   const ProductProvider({
     super.key,
@@ -51,12 +51,17 @@ class _ProductProviderWrapperState extends State<ProductProviderWrapper> {
     });
   }
 
-  void filterProduct(Category? category) {
+  void filterProduct(FilterElement filterElement){
     setState(() {
-      if (category == null) {
-        _productsfiltered = _products;
-      } else {
-        _productsfiltered = _products.where((product) => product.category == category).toList();
+      if(filterElement.category == null){
+        _productsfiltered = _products.where((product) => product.name.contains(filterElement.word))
+        .toList();
+      }
+      else{
+        _productsfiltered = _products
+        .where((product) => product.category == filterElement.category)
+        .where((product) => product.name.contains(filterElement.word))
+        .toList();
       }
     });
   }
