@@ -18,12 +18,12 @@ class ProductRegisterPage extends StatefulWidget {
 }
 
 class _ProductRegisterPageState extends State<ProductRegisterPage> {
-  //image 추가 예정
+  final int randomSeed = Random().nextInt(100) + 1; // 생성자 시점에 고정
   String? name;
   String? description;
   int? price;
   Category? category;
-  final int randomSeed = Random().nextInt(100) + 1; // 생성자 시점에 고정
+  bool isImageAdd = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,10 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                   children: [
                     AspectRatio(
                       aspectRatio: 16 / 9,
-                      child: AppCachedImage(imageUrl: "${AppConstants.randomImageUrl}/seed/${randomSeed}300/300", fit: BoxFit.fitWidth),
+                      child:
+                          isImageAdd
+                              ? AppCachedImage(imageUrl: "${AppConstants.randomImageUrl}/seed/${randomSeed}300/300", fit: BoxFit.fitWidth)
+                              : emptyImage(),
                     ),
                     Padding(
                       padding: EdgeInsets.all(10),
@@ -212,5 +215,19 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
       return false; // 하나라도 비어 있으면 false 반환
     }
     return true; // 모두 입력되었으면 true 반환
+  }
+
+  Widget emptyImage() {
+    return GestureDetector(
+      onTap: _showImageDialog,
+      child: Container(decoration: BoxDecoration(color: Colors.grey[300]), child: Icon(Icons.add_a_photo, color: Colors.grey[700])),
+    );
+  }
+
+  _showImageDialog() async {
+    await showAppCupertinoDialog(context: context, title: '성공', content: "이미지가 선택되었습니다");
+    setState(() {
+      isImageAdd = true;
+    });
   }
 }
