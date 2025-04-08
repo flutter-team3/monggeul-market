@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:monggeul_market/model/filter_element.dart';
 import 'package:monggeul_market/provider/product_provider.dart';
 import 'package:monggeul_market/ui/home/widgets/product_list_widget.dart';
@@ -19,9 +20,13 @@ class HomePage extends StatelessWidget {
     final provider = ProductProvider.of(context);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        scrolledUnderElevation: 0,
         title: Text(title),
         centerTitle: true,
         actions: [],
+        //상단바 색상
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -38,27 +43,14 @@ class HomePage extends StatelessWidget {
               child: Row(
                 children: [
                   GestureDetector(
-                    child: Text(
-                      '장바구니',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    child: Text('장바구니', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                     onTap: () {
                       Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CartPage()),
-                      );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
                     },
                   ),
                   Spacer(),
-                  Image.asset(
-                    'assets/images/shopping_cart.png',
-                    width: 30,
-                    height: 30,
-                  ),
+                  Image.asset('assets/images/shopping_cart.png', width: 30, height: 30),
                 ],
               ),
             ),
@@ -93,10 +85,7 @@ class HomePage extends StatelessWidget {
             children: [
               SearchBar(
                 elevation: WidgetStatePropertyAll(0.5),
-                shape: WidgetStatePropertyAll(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)
-                  )),
+                shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                 hintText: '검색어를 입력하세요',
                 onChanged: (value) {
                   provider.filterProduct(filterElement.setWord(value));
@@ -106,14 +95,20 @@ class HomePage extends StatelessWidget {
                 trailing: [
                   Tooltip(
                     message: 'remove text',
-                    child: _textEditingController.text == '' ? null : IconButton(onPressed: () {
-                      _textEditingController.clear();
-                      provider.filterProduct(filterElement.resetWord());
-                    }, icon: Icon(Icons.highlight_remove)),
-                  )
+                    child:
+                        _textEditingController.text == ''
+                            ? null
+                            : IconButton(
+                              onPressed: () {
+                                _textEditingController.clear();
+                                provider.filterProduct(filterElement.resetWord());
+                              },
+                              icon: Icon(Icons.highlight_remove),
+                            ),
+                  ),
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 10),
               Expanded(child: ProductListWidget()),
             ],
           ),
@@ -138,15 +133,8 @@ class HomePage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (category != null)
-              Container(
-                margin: EdgeInsets.only(right: 10),
-                child: Image.asset(category!.imgPath, width: 30),
-              ),
-            Text(
-              category?.label ?? '전체',
-              style: TextStyle(fontSize: category?.label == null ? 18 : 17),
-            ),
+            if (category != null) Container(margin: EdgeInsets.only(right: 10), child: Image.asset(category.imgPath, width: 30)),
+            Text(category?.label ?? '전체', style: TextStyle(fontSize: category?.label == null ? 18 : 17)),
           ],
         ),
       ),
