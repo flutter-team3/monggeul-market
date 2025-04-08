@@ -6,6 +6,7 @@ import 'package:monggeul_market/provider/product_provider.dart';
 import 'package:monggeul_market/ui/home/widgets/product_list_widget.dart';
 import 'package:monggeul_market/ui/product_register/product_register_page.dart';
 import 'package:monggeul_market/model/category.dart';
+import 'package:project_name_change/model/category.dart';
 
 import '../cart/cart_page.dart';
 
@@ -40,14 +41,27 @@ class HomePage extends StatelessWidget {
               child: Row(
                 children: [
                   GestureDetector(
-                    child: Text('장바구니', style: TextStyle(fontWeight: FontWeight.bold)),
+                    child: Text(
+                      '장바구니',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     onTap: () {
                       Navigator.of(context).pop();
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CartPage()));
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CartPage()),
+                      );
                     },
                   ),
                   Spacer(),
-                  Text('찜리스트'),
+                  Image.asset(
+                    'assets/images/shopping_cart.png',
+                    width: 30,
+                    height: 30,
+                  ),
                 ],
               ),
             ),
@@ -55,6 +69,7 @@ class HomePage extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    Divider(),
                     categoryButton(null, context),
                     Divider(),
                     categoryButton(Category.hedgehog, context),
@@ -126,8 +141,15 @@ class HomePage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (category != null) Container(margin: EdgeInsets.only(right: 10), child: Image.asset(category.imgPath, width: 30)),
-            Text(category?.label ?? '전체'),
+            if (category != null)
+              Container(
+                margin: EdgeInsets.only(right: 10),
+                child: Image.asset(category!.imgPath, width: 30),
+              ),
+            Text(
+              category?.label ?? '전체',
+              style: TextStyle(fontSize: category?.label == null ? 18 : 17),
+            ),
           ],
         ),
       ),
