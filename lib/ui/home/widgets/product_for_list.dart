@@ -78,7 +78,7 @@ class ProductForList extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(style: TextStyle(fontSize: categoryFontSize), '#${product.category.label}'),
-            Text(style: TextStyle(fontSize: priceFontSize), formatKrw(product.price)),
+            Text(style: TextStyle(fontSize: priceFontSize), product.price > 0 ? formatKrw(product.price) : '무료'),
           ],
         ),
       ],
