@@ -86,12 +86,12 @@ class ProductForList extends StatelessWidget {
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               style: TextStyle(fontSize: categoryFontSize),
               '#${product.category.label}',
             ),
-            Spacer(),
             Text(
               style: TextStyle(fontSize: priceFontSize),
               formatKrw(product.price),
