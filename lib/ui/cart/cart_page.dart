@@ -1,13 +1,13 @@
 import 'dart:math';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:project_name_change/app/constants/app_constants.dart';
-import 'package:project_name_change/provider/cart_provider.dart';
-import 'package:project_name_change/ui/cart/widgets/cart_item_texts.dart';
-import 'package:project_name_change/ui/cart/widgets/total_price_row.dart';
-import 'package:project_name_change/util/util.dart';
-import 'package:project_name_change/widgets/cart_item_amount.dart';
+import 'package:monggeul_market/app/constants/app_constants.dart';
+import 'package:monggeul_market/model/cart_item.dart';
+import 'package:monggeul_market/provider/cart_provider.dart';
+import 'package:monggeul_market/ui/cart/widgets/cart_item_texts.dart';
+import 'package:monggeul_market/ui/cart/widgets/total_price_row.dart';
+import 'package:monggeul_market/util/util.dart';
+import 'package:monggeul_market/widgets/cart_item_amount.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,7 +22,7 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cartItems = CartProvider.of(context).cartItems;
+    final List<CartItem> cartItems = CartProvider.of(context).cartItems;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -37,13 +37,9 @@ class CartPage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Lottie.asset(
-                        'assets/animations/empty_cart_lottie.json',
-                        width: 240,
-                        fit: BoxFit.cover,
-                      ),
+                      Lottie.asset('assets/animations/empty_cart_lottie.json', width: 240, fit: BoxFit.cover),
                       SizedBox(height: 10),
-                      Text('장바구니가 비어있습니다', style: TextStyle(fontSize: 21)),
+                      Text('장바구니가 비어있습니다', style: TextStyle(fontSize: 21, color: AppColors.primary, fontWeight: FontWeight.bold)),
                     ],
                   ),
                 )
@@ -57,23 +53,17 @@ class CartPage extends StatelessWidget {
                           itemCount: cartItems.length + 1,
                           itemBuilder: (context, index) {
                             if (index == cartItems.length) {
-                              return TotalPriceRow(
-                                CartProvider.of(context).totalPrice,
-                              );
+                              return TotalPriceRow(CartProvider.of(context).totalPrice);
                             }
                             final cartItem = cartItems[index];
                             return Padding(
-                              padding: EdgeInsets.only(
-                                top: index == 0 ? 15 : 0,
-                              ),
+                              padding: EdgeInsets.only(top: index == 0 ? 15 : 0),
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (context) => ProductDetailPage(),
-                                      settings: RouteSettings(
-                                        arguments: cartItem.product,
-                                      ),
+                                      settings: RouteSettings(arguments: cartItem.product),
                                     ),
                                   );
                                 },
@@ -82,10 +72,8 @@ class CartPage extends StatelessWidget {
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(5),
                                       child: AppCachedImage(
-                                        imageUrl: '${AppConstants.randomImageUrl}seed/${cartItem
-                                            .product.imageSeed}/${imageDimension
-                                            .toStringAsFixed(0)}/${imageDimension
-                                            .toStringAsFixed(0)}',
+                                        imageUrl:
+                                            '${AppConstants.randomImageUrl}seed/${cartItem.product.imageSeed}/${imageDimension.toStringAsFixed(0)}/${imageDimension.toStringAsFixed(0)}',
                                         width: imageDimension,
                                         height: imageDimension,
                                         fit: BoxFit.cover,
@@ -102,14 +90,8 @@ class CartPage extends StatelessWidget {
                                             top: 0,
                                             right: 5,
                                             child: InkWell(
-                                              onTap:
-                                                  () => CartProvider.of(
-                                                    context,
-                                                  ).removeCartItem(index),
-                                              child: Icon(
-                                                Icons.delete,
-                                                color: AppColors.primary,
-                                              ),
+                                              onTap: () => CartProvider.of(context).removeCartItem(index),
+                                              child: Icon(Icons.delete, color: AppColors.primary),
                                             ),
                                           ),
                                           Positioned(
@@ -117,18 +99,8 @@ class CartPage extends StatelessWidget {
                                             right: 0,
                                             child: CartItemAmount(
                                               amount: cartItems[index].amount,
-                                              onPlusIconTap:
-                                                  () => CartProvider.of(
-                                                    context,
-                                                  ).increaseCartItemAmount(
-                                                    index,
-                                                  ),
-                                              onMinusIconTap:
-                                                  () => CartProvider.of(
-                                                    context,
-                                                  ).decreaseCartItemAmount(
-                                                    index,
-                                                  ),
+                                              onPlusIconTap: () => CartProvider.of(context).increaseCartItemAmount(index),
+                                              onMinusIconTap: () => CartProvider.of(context).decreaseCartItemAmount(index),
                                             ),
                                           ),
                                         ],
@@ -141,23 +113,15 @@ class CartPage extends StatelessWidget {
                           },
                           separatorBuilder:
                               (context, index) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 20,
-                                ),
-                                child: Divider(
-                                  color: Colors.grey,
-                                  height: 1,
-                                  thickness: 1,
-                                ),
+                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                child: Divider(color: Colors.grey, height: 1, thickness: 1),
                               ),
                         ),
                       ),
                     ),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(0),
-                        ),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
                         padding: EdgeInsets.symmetric(vertical: 17),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -167,37 +131,22 @@ class CartPage extends StatelessWidget {
                           final String? result = await showAppCupertinoDialog(
                             context: context,
                             title: '네이버 쇼핑으로 이동할까요?',
-                            content:
-                                '현재 구매 기능은 아직 준비 중입니다. 네이버 쇼핑에서 비슷한 상품을 찾아보시겠어요?',
+                            content: '현재 구매 기능은 아직 준비 중입니다. 네이버 쇼핑에서 비슷한 상품을 찾아보시겠어요?',
                             showCancel: true,
                           );
                           if (result == '확인') {
                             String searchQuery = cartItems
                                 .sublist(0, min(3, cartItems.length))
-                                .map(
-                                  (cartItem) =>
-                                      '${cartItem.product.category.label}%20용품',
-                                )
+                                .map((cartItem) => '${cartItem.product.category.label}%20용품')
                                 .join('%20');
-                            final url = Uri.parse(
-                              'https://search.shopping.naver.com/ns/search?query=$searchQuery',
-                            );
+                            final url = Uri.parse('https://search.shopping.naver.com/ns/search?query=$searchQuery');
                             if (await canLaunchUrl(url)) {
-                              await launchUrl(
-                                url,
-                                mode: LaunchMode.externalApplication,
-                              );
+                              await launchUrl(url, mode: LaunchMode.externalApplication);
                             }
                           }
                         }
                       },
-                      child: Text(
-                        '구매하기',
-                        style: TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text('구매하기', style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
