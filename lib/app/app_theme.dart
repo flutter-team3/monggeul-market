@@ -9,7 +9,7 @@ class AppTheme {
       brightness: brightness,
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.primary,
-        surface: const Color.fromARGB(255, 252, 243, 231),
+        surface: AppColors.newBackground,
         brightness: brightness,
       ).copyWith(primary: AppColors.primary),
       highlightColor: AppColors.primary,
