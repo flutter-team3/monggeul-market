@@ -16,7 +16,6 @@ class CartItem {
     _amount += additional;
   }
 
-  // 나중에 검증 추가하기 (개수가 0보다 작으면 예의 throw)
   void removeOne() {
     _amount--;
   }
