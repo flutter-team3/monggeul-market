@@ -88,10 +88,12 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
 
   /// 장바구니 특정 인덱스 상품의 수량을 1개 증가
   void increaseCartItemAmount(int cartItemIndex) {
-    setState(() {
-      _totalPrice += _cartItems[cartItemIndex].product.price;
-      _cartItems[cartItemIndex].addOne();
-    });
+    if (_cartItems[cartItemIndex].amount < 99) {
+      setState(() {
+        _totalPrice += _cartItems[cartItemIndex].product.price;
+        _cartItems[cartItemIndex].addOne();
+      });
+    }
   }
 
   /// 장바구니 특정 인덱스 상품의 수량을 1개 감소
