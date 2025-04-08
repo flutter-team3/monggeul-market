@@ -129,7 +129,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                             inputFormatters: [FilteringTextInputFormatter.digitsOnly], // 숫자만 입력
                             onChanged: (value) {
                               setState(() {
-                                price = int.parse(value);
+                                price = int.tryParse(value);
                               });
                             },
                             keyboardType: TextInputType.number,
