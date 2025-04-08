@@ -4,8 +4,7 @@ class Product {
   final String name;
   final String description;
   final int price;
-
-  // String? imageUrl;
+  late int imageSeed;
   final Category category;
 
   Product({
@@ -13,6 +12,7 @@ class Product {
     required this.description,
     required this.price,
     required this.category,
-    // this.imageUrl,
-  });
+  }) {
+    imageSeed = name.codeUnits.fold(0, (sum, char) => sum + char) % 1000;
+  }
 }

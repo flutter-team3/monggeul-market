@@ -1,18 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:monggeul_market/provider/cart_provider.dart';
+import 'package:monggeul_market/widgets/app_cached_image.dart';
+import '../../app/constants/app_constants.dart';
+import '../../model/product.dart';
+import '../../util/util.dart';
+import '../../widgets/cart_item_amount.dart';
+import '../cart/cart_page.dart';
 
-class ProductDetailPage extends StatelessWidget {
+class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key});
 
   @override
+  State<ProductDetailPage> createState() => _ProductDetailPageState();
+}
+
+class _ProductDetailPageState extends State<ProductDetailPage> {
+  int amount = 1;
+
+  @override
   Widget build(BuildContext context) {
+    final product = ModalRoute.of(context)!.settings.arguments as Product;
+
     return Scaffold(
-      appBar: AppBar(title: Text('제품 상세')),
+      appBar: AppBar(
+        title: Text('제품 상세', style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+      ),
       body: Column(
         children: [
           AspectRatio(
             aspectRatio: 3 / 2,
-            child: Image.network(
-              'https://picsum.photos/300/200',
+            child: AppCachedImage(
+              imageUrl:
+                  '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/200',
               fit: BoxFit.cover,
             ),
           ),
@@ -22,10 +42,10 @@ class ProductDetailPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 25),
             child: Row(
               children: [
-                Text('상품 이름', style: TextStyle(fontSize: 24)),
+                Text((product.name), style: TextStyle(fontSize: 24)),
                 Expanded(child: SizedBox()),
                 Text(
-                  '16,000 원',
+                  formatKrw(product.price),
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -37,63 +57,127 @@ class ProductDetailPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: ListView(
                 children: [
-                  Text('이 제품은 사슴벌레 젤리입니다.', style: TextStyle(fontSize: 16)),
+                  Text(product.description, style: TextStyle(fontSize: 16)),
                 ],
               ),
             ),
           ),
-          Container(
-            height: 150,
-            decoration: BoxDecoration(color: Colors.grey[300]),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 40, right: 40, top: 15),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        height: 30,
-                        width: 120,
-                        child: Container(
-                          decoration: BoxDecoration(color: Colors.white),
-                          child: Text('-, + 수량변경 버튼'),
-                        ),
-                      ),
-                      Expanded(child: SizedBox()),
-                      SizedBox(
-                        child: Text(
-                          '16,000원',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
+          Material(
+            child: SizedBox(
+              height: 130,
+              child: Column(
+                children: [
+                  Divider(thickness: 1),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            children: [
+                              SizedBox(width: 8),
+                              Text(
+                                '총 ${formatKrw(product.price * amount)}',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Expanded(child: SizedBox()),
+                              CartItemAmount(
+                                amount: amount,
+                                onPlusIconTap: () {
+                                  amount < 99
+                                      ? setState(() {
+                                        amount++;
+                                      })
+                                      : {};
+                                },
+                                onMinusIconTap: () {
+                                  amount > 1
+                                      ? setState(() {
+                                        amount--;
+                                      })
+                                      : {};
+                                },
+                              ),
+                              SizedBox(width: 8),
+                            ],
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(height: 15),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text('장바구니 담기'),
+                  SizedBox(height: 4),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              showAppCupertinoDialog(
+                                context: context,
+                                title: '성공',
+                                content:
+                                    "${product.name} $amount개를 장바구니에 담았습니다.",
+                              );
+                              CartProvider.of(
+                                context,
+                              ).addProductToCart(product, amount);
+                            },
+                            child: Text(
+                              '장바구니 담기',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 25),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text('구매하기'),
+                        SizedBox(width: 25),
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              final String?
+                              result = await showAppCupertinoDialog(
+                                showCancel: true,
+                                context: context,
+                                title: '구매 확인',
+                                content:
+                                    '${product.name} $amount개 구매하시겠습니까? 장바구니로 이동합니다.',
+                              );
+                              if (!context.mounted) {
+                                return;
+                              } // await 후에 context 안전한 사용
+                              if (result == '확인') {
+                                CartProvider.of(
+                                  context,
+                                ).addProductToCart(product, amount);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CartPage(),
+                                  ),
+                                );
+                              }
+                            },
+
+                            child: Text(
+                              '구매하기',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

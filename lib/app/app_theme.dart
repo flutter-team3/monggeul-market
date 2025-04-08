@@ -9,9 +9,17 @@ class AppTheme {
       brightness: brightness,
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.primary,
+        surface: AppColors.newBackground,
         brightness: brightness,
       ).copyWith(primary: AppColors.primary),
       highlightColor: AppColors.primary,
+
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+        ),
+      ),
     );
   }
 
