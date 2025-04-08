@@ -23,6 +23,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
   String? description;
   int? price;
   Category? category;
+  final int randomSeed = Random().nextInt(100) + 1; // 생성자 시점에 고정
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                   children: [
                     AspectRatio(
                       aspectRatio: 16 / 9,
-                      child: AppCachedImage(imageUrl: "${AppConstants.randomImageUrl}/seed/${getRandomInt()}300/300", fit: BoxFit.fitWidth),
+                      child: AppCachedImage(imageUrl: "${AppConstants.randomImageUrl}/seed/${randomSeed}300/300", fit: BoxFit.fitWidth),
                     ),
                     Padding(
                       padding: EdgeInsets.all(10),
@@ -202,10 +203,5 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
       return false; // 하나라도 비어 있으면 false 반환
     }
     return true; // 모두 입력되었으면 true 반환
-  }
-
-  int getRandomInt() {
-    final random = Random();
-    return random.nextInt(100) + 1;
   }
 }
