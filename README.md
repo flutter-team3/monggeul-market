@@ -19,7 +19,7 @@
   <img src="images/category_selected.png" width="240" style="margin-right: 5px;" />  
   <img src="images/detail.png" width="240" style="margin-right: 5px;" />  
   <img src="images/detail_buy_confirm.png" width="240" style="margin-right: 5px;" />
-  <img src="images/cart.png" width="240" style="margin-right: 5px;" />
+  <img src="images/cart_page.png" width="240" style="margin-right: 5px;" />
   <img src="images/cart_empty.png" width="240" />  
 </div>
 
