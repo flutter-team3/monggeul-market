@@ -1,10 +1,14 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:monggeul_market/app/constants/app_colors.dart';
+import 'package:monggeul_market/app/constants/app_constants.dart';
 import 'package:monggeul_market/model/category.dart';
 import 'package:monggeul_market/model/product.dart';
 import 'package:monggeul_market/provider/product_provider.dart';
 import 'package:monggeul_market/util/util.dart';
+import 'package:monggeul_market/widgets/app_cached_image.dart';
 
 class ProductRegisterPage extends StatefulWidget {
   const ProductRegisterPage({super.key});
@@ -23,7 +27,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("TITLE"), centerTitle: true),
+      appBar: AppBar(title: const Text("상품 등록"), centerTitle: true),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Column(
@@ -33,7 +37,10 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AspectRatio(aspectRatio: 16 / 9, child: Container(width: double.infinity, color: Colors.grey, child: Center(child: Text('이미지')))),
+                    AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: AppCachedImage(imageUrl: "${AppConstants.randomImageUrl}/seed/${getRandomInt()}300/300", fit: BoxFit.fitWidth),
+                    ),
                     Padding(
                       padding: EdgeInsets.all(10),
                       child: Column(
@@ -195,5 +202,10 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
       return false; // 하나라도 비어 있으면 false 반환
     }
     return true; // 모두 입력되었으면 true 반환
+  }
+
+  int getRandomInt() {
+    final random = Random();
+    return random.nextInt(100) + 1;
   }
 }
