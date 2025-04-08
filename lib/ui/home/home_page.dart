@@ -5,6 +5,7 @@ import 'package:monggeul_market/ui/home/widgets/product_list_widget.dart';
 import 'package:monggeul_market/ui/product_register/product_register_page.dart';
 import 'package:monggeul_market/model/category.dart';
 
+import '../../app/constants/app_colors.dart';
 import '../cart/cart_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -18,72 +19,84 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = ProductProvider.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        centerTitle: true,
-        actions: [],
-      ),
+      appBar: AppBar(title: Text(title), centerTitle: true, actions: []),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromRGBO(254, 252, 248, 1),
         onPressed: () async {
-          await Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductRegisterPage()));
+          await Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => ProductRegisterPage()),
+          );
           provider.filterProduct(filterElement);
         },
         child: Icon(Icons.add),
       ),
       endDrawer: Drawer(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 95, horizontal: 65),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    child: Text(
-                      '장바구니',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+        backgroundColor: const Color.fromARGB(255, 252, 243, 231),
+        width: 280,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 95, bottom: 20),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CartPage()),
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          SizedBox(height: 3),
+                          Text(
+                            '장바구니',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CartPage()),
-                      );
-                    },
+                      SizedBox(width: 20),
+                      Image.asset(
+                        'assets/images/shopping_cart.png',
+                        width: 25,
+                        height: 25,
+                      ),
+                    ],
                   ),
-                  Spacer(),
-                  Image.asset(
-                    'assets/images/shopping_cart.png',
-                    width: 30,
-                    height: 30,
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Divider(),
-                    categoryButton(null, context),
-                    Divider(),
-                    categoryButton(Category.hedgehog, context),
-                    Divider(),
-                    categoryButton(Category.lizard, context),
-                    Divider(),
-                    categoryButton(Category.parrot, context),
-                    Divider(),
-                    categoryButton(Category.raccoon, context),
-                    Divider(),
-                    categoryButton(Category.stagBeetle, context),
-                    Divider(),
-                  ],
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 20),
+                      Divider(),
+                      categoryButton(null, context),
+                      Divider(),
+                      categoryButton(Category.hedgehog, context),
+                      Divider(),
+                      categoryButton(Category.lizard, context),
+                      Divider(),
+                      categoryButton(Category.parrot, context),
+                      Divider(),
+                      categoryButton(Category.raccoon, context),
+                      Divider(),
+                      categoryButton(Category.stagBeetle, context),
+                      Divider(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       body: SafeArea(
@@ -95,9 +108,13 @@ class HomePage extends StatelessWidget {
                 elevation: WidgetStatePropertyAll(0.5),
                 shape: WidgetStatePropertyAll(
                   RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)
-                  )),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
                 hintText: '검색어를 입력하세요',
+                backgroundColor: const WidgetStatePropertyAll(
+                  Color.fromRGBO(254, 252, 248, 1),
+                ),
                 onChanged: (value) {
                   provider.filterProduct(filterElement.setWord(value));
                 },
@@ -106,14 +123,22 @@ class HomePage extends StatelessWidget {
                 trailing: [
                   Tooltip(
                     message: 'remove text',
-                    child: _textEditingController.text == '' ? null : IconButton(onPressed: () {
-                      _textEditingController.clear();
-                      provider.filterProduct(filterElement.resetWord());
-                    }, icon: Icon(Icons.highlight_remove)),
-                  )
+                    child:
+                        _textEditingController.text == ''
+                            ? null
+                            : IconButton(
+                              onPressed: () {
+                                _textEditingController.clear();
+                                provider.filterProduct(
+                                  filterElement.resetWord(),
+                                );
+                              },
+                              icon: Icon(Icons.highlight_remove),
+                            ),
+                  ),
                 ],
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 10),
               Expanded(child: ProductListWidget()),
             ],
           ),
@@ -134,18 +159,18 @@ class HomePage extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       child: Container(
         color: Colors.transparent,
-        margin: EdgeInsets.all(25),
+        margin: EdgeInsets.symmetric(vertical: 15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (category != null)
               Container(
                 margin: EdgeInsets.only(right: 10),
-                child: Image.asset(category!.imgPath, width: 30),
+                child: Image.asset(category.imgPath, width: 30),
               ),
             Text(
-              category?.label ?? '전체',
-              style: TextStyle(fontSize: category?.label == null ? 18 : 17),
+              category?.label ?? '전체 상품 보기',
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
           ],
         ),
