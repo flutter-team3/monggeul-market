@@ -117,7 +117,7 @@ class HomePage extends StatelessWidget {
               ),
             Text(
               category?.label ?? '전체',
-              style: TextStyle(fontSize: category?.label == null ? 18 : 15),
+              style: TextStyle(fontSize: category?.label == null ? 18 : 17),
             ),
           ],
         ),
