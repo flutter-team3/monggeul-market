@@ -20,10 +20,13 @@ class ProductForList extends StatelessWidget {
         width: double.infinity,
         child: Row(
           children: [
-            SizedBox(
+            Container(
               width: 80,
               height: 80,
-              child: Image.network(fit: BoxFit.cover, '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/300'),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(fit: BoxFit.cover, '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/300')
+              ),
             ),
             SizedBox(width: 10),
             Expanded(
