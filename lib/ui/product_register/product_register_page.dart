@@ -18,14 +18,12 @@ class ProductRegisterPage extends StatefulWidget {
 }
 
 class _ProductRegisterPageState extends State<ProductRegisterPage> {
-  //image 추가 예정
-
-  final int randomSeed = Random().nextInt(100) + 1;
+  final int randomSeed = Random().nextInt(100) + 1; // 생성자 시점에 고정
   String? name;
   String? description;
   int? price;
   Category? category;
-
+  bool isImageAdd = false;
   // form 상태 확인을 위한 GlobalKey
   final _formKey = GlobalKey<FormState>();
 
@@ -50,10 +48,13 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AspectRatio(
-                        aspectRatio: 16 / 9,
-                        child: AppCachedImage(imageUrl: "${AppConstants.randomImageUrl}/seed/${randomSeed}300/300", fit: BoxFit.fitWidth),
-                      ),
+                        AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child:
+                          isImageAdd
+                              ? AppCachedImage(imageUrl: "${AppConstants.randomImageUrl}/seed/${randomSeed}300/300", fit: BoxFit.fitWidth)
+                              : emptyImage(),
+                    ),
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: Column(
@@ -256,5 +257,19 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
         (price != null) &&
         (description != null && description.trim().isNotEmpty) &&
         (category != null);
+  }
+
+  Widget emptyImage() {
+    return GestureDetector(
+      onTap: _showImageDialog,
+      child: Container(decoration: BoxDecoration(color: Colors.grey[300]), child: Icon(Icons.add_a_photo, color: Colors.grey[700])),
+    );
+  }
+
+  _showImageDialog() async {
+    await showAppCupertinoDialog(context: context, title: '성공', content: "이미지가 선택되었습니다");
+    setState(() {
+      isImageAdd = true;
+    });
   }
 }
