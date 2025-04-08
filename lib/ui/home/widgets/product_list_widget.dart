@@ -9,10 +9,8 @@ class ProductListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final products = ProductProvider.of(context).productListFiltered;
-    return ListView.separated(
+    return ListView.builder(
       shrinkWrap: true,
-      // physics: const NeverScrollableScrollPhysics(),
-      separatorBuilder: (context, int index) => const Divider(),
       itemCount: products.length,
       itemBuilder: (BuildContext context, int index) {
         return ProductForList(products[index]);
