@@ -8,6 +8,7 @@ import 'package:monggeul_market/widgets/app_cached_image.dart';
 
 class ProductForList extends StatelessWidget {
   final Product product;
+  final double imageDimension = 90;
 
   const ProductForList(this.product, {super.key});
 
@@ -19,13 +20,16 @@ class ProductForList extends StatelessWidget {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProductDetailPage(), settings: RouteSettings(arguments: product)));
       },
       child: Container(
-        decoration: BoxDecoration(border: Border(bottom: BorderSide(color: AppColors.primary))),
+        padding: EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: AppColors.primary)),
+        ),
         width: double.infinity,
         child: Row(
           children: [
             SizedBox(
-              width: 80,
-              height: 80,
+              width: imageDimension,
+              height: imageDimension,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: AppCachedImage(fit: BoxFit.cover, imageUrl: '${AppConstants.randomImageUrl}seed/${product.imageSeed}/300/300'),
@@ -36,7 +40,10 @@ class ProductForList extends StatelessWidget {
               child: SizedBox(
                 height: 100,
                 // color: Colors.white,
-                child: Padding(padding: const EdgeInsets.all(10.0), child: productInformation()),
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: productInformation(),
+                ),
               ),
             ),
           ],
