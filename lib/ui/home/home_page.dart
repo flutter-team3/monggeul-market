@@ -21,6 +21,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(title), centerTitle: true, actions: []),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color.fromRGBO(254, 252, 248, 1),
         onPressed: () async {
           await Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => ProductRegisterPage()),
@@ -30,7 +31,7 @@ class HomePage extends StatelessWidget {
         child: Icon(Icons.add),
       ),
       endDrawer: Drawer(
-        backgroundColor: AppColors.background,
+        backgroundColor: const Color.fromARGB(255, 252, 243, 231),
         width: 280,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 35),
@@ -111,6 +112,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 hintText: '검색어를 입력하세요',
+                backgroundColor: const WidgetStatePropertyAll(
+                  Color.fromRGBO(254, 252, 248, 1),
+                ),
                 onChanged: (value) {
                   provider.filterProduct(filterElement.setWord(value));
                 },
@@ -120,17 +124,17 @@ class HomePage extends StatelessWidget {
                   Tooltip(
                     message: 'remove text',
                     child:
-                    _textEditingController.text == ''
-                        ? null
-                        : IconButton(
-                      onPressed: () {
-                        _textEditingController.clear();
-                        provider.filterProduct(
-                          filterElement.resetWord(),
-                        );
-                      },
-                      icon: Icon(Icons.highlight_remove),
-                    ),
+                        _textEditingController.text == ''
+                            ? null
+                            : IconButton(
+                              onPressed: () {
+                                _textEditingController.clear();
+                                provider.filterProduct(
+                                  filterElement.resetWord(),
+                                );
+                              },
+                              icon: Icon(Icons.highlight_remove),
+                            ),
                   ),
                 ],
               ),
