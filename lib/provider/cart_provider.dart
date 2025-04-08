@@ -107,7 +107,7 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
   @override
   Widget build(BuildContext context) {
     return CartProvider(
-      cartItems: _cartItems,
+      cartItems: List<CartItem>.from(_cartItems),
       totalPrice: _totalPrice,
       addProductToCart: addProductToCart,
       removeCartItem: removeCartItem,
