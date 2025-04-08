@@ -21,9 +21,6 @@ class CartProvider extends InheritedWidget {
   /// 장바구니 특정 인덱스 상품의 수량을 1개 감소
   final void Function(int) decreaseCartItemAmount;
 
-  /// 장바구니 특정 인덱스 상품의 수량을 n개 증가
-  final void Function(int, int) increaseAdditionalCartItemAmount;
-
   const CartProvider({
     super.key,
     required super.child,
@@ -33,7 +30,6 @@ class CartProvider extends InheritedWidget {
     required this.removeCartItem,
     required this.increaseCartItemAmount,
     required this.decreaseCartItemAmount,
-    required this.increaseAdditionalCartItemAmount,
   });
 
   @override
@@ -108,14 +104,6 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
     }
   }
 
-  /// 장바구니 특정 인덱스 상품의 수량을 n개(n == additioanl) 증가
-  void increaseAdditionalCartItemAmount(int cartItemIndex, int additional) {
-    setState(() {
-      _totalPrice += _cartItems[cartItemIndex].product.price * additional;
-      _cartItems[cartItemIndex].addAdditional(additional);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return CartProvider(
@@ -125,7 +113,6 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
       removeCartItem: removeCartItem,
       increaseCartItemAmount: increaseCartItemAmount,
       decreaseCartItemAmount: decreaseCartItemAmount,
-      increaseAdditionalCartItemAmount: increaseAdditionalCartItemAmount,
       child: widget.child,
     );
   }
