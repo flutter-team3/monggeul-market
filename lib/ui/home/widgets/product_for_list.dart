@@ -104,7 +104,7 @@ class ProductForList extends StatelessWidget {
 
   Widget productDescription(double fontSize) {
     return RichText(
-      maxLines: 3,
+      maxLines: 2,
       overflow: TextOverflow.ellipsis,
       text: TextSpan(
         style: TextStyle(color: Colors.black, fontSize: fontSize),
