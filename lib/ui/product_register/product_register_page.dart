@@ -101,6 +101,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                         children: [
                           Text("상품 이름", style: TextStyle(fontWeight: FontWeight.bold)),
                           TextField(
+                            maxLength: 20,
                             onChanged: (value) {
                               setState(() {
                                 name = value;
@@ -124,6 +125,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                         children: [
                           Text("상품 가격", style: TextStyle(fontWeight: FontWeight.bold)),
                           TextField(
+                            maxLength: 10,
                             inputFormatters: [FilteringTextInputFormatter.digitsOnly], // 숫자만 입력
                             onChanged: (value) {
                               setState(() {
@@ -150,6 +152,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                         children: [
                           Text("상품 설명", style: TextStyle(fontWeight: FontWeight.bold)),
                           TextField(
+                            maxLength: 500,
                             onChanged: (value) {
                               setState(() {
                                 description = value;
