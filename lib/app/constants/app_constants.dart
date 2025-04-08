@@ -42,7 +42,7 @@ class AppConstants {
     Product(
       name: '사슴벌레 먹이젤리',
       description: '사슴벌레 전용 과일맛 젤리입니다.',
-      price: 5000,
+      price: 0,
       category: Category.stagBeetle,
     ), // food
     Product(
