@@ -87,8 +87,11 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               SearchBar(
+                backgroundColor: WidgetStateProperty.all(AppColors.background),
                 elevation: WidgetStatePropertyAll(0.5),
-                shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                shape: WidgetStatePropertyAll(
+                  RoundedRectangleBorder(side: BorderSide(width: 2, color: AppColors.primary), borderRadius: BorderRadius.circular(10)),
+                ),
                 hintText: '검색어를 입력하세요',
                 onChanged: (value) {
                   provider.filterProduct(filterElement.setWord(value));
