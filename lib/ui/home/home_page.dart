@@ -32,67 +32,70 @@ class HomePage extends StatelessWidget {
       endDrawer: Drawer(
         backgroundColor: AppColors.background,
         width: 280,
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 95, bottom: 20, left: 35, right: 35),
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => CartPage()),
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        SizedBox(height: 3),
-                        Text(
-                          '장바구니',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 95, bottom: 20),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => CartPage()),
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          SizedBox(height: 3),
+                          Text(
+                            '장바구니',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    Image.asset(
-                      'assets/images/shopping_cart.png',
-                      width: 25,
-                      height: 25,
-                    ),
-                  ],
+                        ],
+                      ),
+                      SizedBox(width: 20),
+                      Image.asset(
+                        'assets/images/shopping_cart.png',
+                        width: 25,
+                        height: 25,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 20),
-                    Divider(),
-                    categoryButton(null, context),
-                    Divider(),
-                    categoryButton(Category.hedgehog, context),
-                    Divider(),
-                    categoryButton(Category.lizard, context),
-                    Divider(),
-                    categoryButton(Category.parrot, context),
-                    Divider(),
-                    categoryButton(Category.raccoon, context),
-                    Divider(),
-                    categoryButton(Category.stagBeetle, context),
-                    Divider(),
-                  ],
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 20),
+                      Divider(),
+                      categoryButton(null, context),
+                      Divider(),
+                      categoryButton(Category.hedgehog, context),
+                      Divider(),
+                      categoryButton(Category.lizard, context),
+                      Divider(),
+                      categoryButton(Category.parrot, context),
+                      Divider(),
+                      categoryButton(Category.raccoon, context),
+                      Divider(),
+                      categoryButton(Category.stagBeetle, context),
+                      Divider(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       body: SafeArea(
@@ -156,7 +159,6 @@ class HomePage extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(width: 5),
             if (category != null)
               Container(
                 margin: EdgeInsets.only(right: 10),
