@@ -154,7 +154,7 @@ class HomePage extends StatelessWidget {
         color: Colors.transparent,
         margin: EdgeInsets.symmetric(vertical: 15),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (category != null)
               Container(
