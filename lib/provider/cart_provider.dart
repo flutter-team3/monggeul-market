@@ -35,7 +35,16 @@ class CartProvider extends InheritedWidget {
   @override
   /// cartItems 개수나 totalPrice가 바뀌면 리빌드 (UI가 그 값에 의존하니까)
   bool updateShouldNotify(covariant CartProvider oldWidget) {
-    return oldWidget.cartItems.length != cartItems.length || oldWidget.totalPrice != totalPrice;
+    if (oldWidget.cartItems.length != cartItems.length ||
+        oldWidget.totalPrice != totalPrice) {
+      return true;
+    }
+    for (int i = 0; i < cartItems.length; i++) {
+      if (oldWidget.cartItems[i].amount != cartItems[i].amount) {
+        return true;
+      }
+    }
+    return false;
   }
 
   static CartProvider of(BuildContext context) {
@@ -91,7 +100,11 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
     if (_cartItems[cartItemIndex].amount < 99) {
       setState(() {
         _totalPrice += _cartItems[cartItemIndex].product.price;
-        _cartItems[cartItemIndex].addOne();
+        final updatedCartItem = CartItem(
+            _cartItems[cartItemIndex].product,
+            amount: _cartItems[cartItemIndex].amount + 1
+        );
+        _cartItems[cartItemIndex] = updatedCartItem;
       });
     }
   }
@@ -101,7 +114,11 @@ class _CartProviderWrapperState extends State<CartProviderWrapper> {
     if (_cartItems[cartItemIndex].amount > 1) {
       setState(() {
         _totalPrice -= _cartItems[cartItemIndex].product.price;
-        _cartItems[cartItemIndex].removeOne();
+        final updatedCartItem = CartItem(
+            _cartItems[cartItemIndex].product,
+            amount: _cartItems[cartItemIndex].amount - 1
+        );
+        _cartItems[cartItemIndex] = updatedCartItem;
       });
     }
   }
