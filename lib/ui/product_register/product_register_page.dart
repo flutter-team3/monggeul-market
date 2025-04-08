@@ -19,11 +19,15 @@ class ProductRegisterPage extends StatefulWidget {
 
 class _ProductRegisterPageState extends State<ProductRegisterPage> {
   //image 추가 예정
+
+  final int randomSeed = Random().nextInt(100) + 1;
   String? name;
   String? description;
   int? price;
   Category? category;
-  final int randomSeed = Random().nextInt(100) + 1; // 생성자 시점에 고정
+
+  // form 상태 확인을 위한 GlobalKey
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,168 +41,206 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
       ),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: AppCachedImage(imageUrl: "${AppConstants.randomImageUrl}/seed/${randomSeed}300/300", fit: BoxFit.fitWidth),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("카테고리", style: TextStyle(fontWeight: FontWeight.bold)),
-                          SizedBox(
-                            height: 40, // 칩 높이 설정
-                            child: ListView(
-                              scrollDirection: Axis.horizontal, // 가로 스크롤
-                              children:
-                                  Category.values.map((value) {
-                                    bool isSelected = category == value;
-
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            category = isSelected ? null : value;
-                                          });
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-
-                                          decoration: BoxDecoration(
-                                            color: isSelected ? AppColors.primary : Colors.grey.shade200,
-                                            borderRadius: BorderRadius.circular(20),
-                                            border: Border.all(color: isSelected ? AppColors.primary : Colors.grey),
-                                          ),
-                                          child: Text(
-                                            value.label,
-                                            style: TextStyle(
-                                              color: isSelected ? Colors.white : Colors.black,
-                                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: AppCachedImage(imageUrl: "${AppConstants.randomImageUrl}/seed/${randomSeed}300/300", fit: BoxFit.fitWidth),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("카테고리", style: TextStyle(fontWeight: FontWeight.bold)),
+                            SizedBox(
+                              height: 40, // 칩 높이 설정
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children:
+                                    Category.values.map((value) {
+                                      bool isSelected = category == value;
+                                      return Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              category = isSelected ? null : value;
+                                            });
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                            decoration: BoxDecoration(
+                                              color: isSelected ? AppColors.primary : Colors.grey.shade200,
+                                              borderRadius: BorderRadius.circular(20),
+                                              border: Border.all(color: isSelected ? AppColors.primary : Colors.grey),
+                                            ),
+                                            child: Text(
+                                              value.label,
+                                              style: TextStyle(
+                                                color: isSelected ? Colors.white : Colors.black,
+                                                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    );
-                                  }).toList(),
+                                      );
+                                    }).toList(),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("상품 이름", style: TextStyle(fontWeight: FontWeight.bold)),
-                          TextField(
-                            maxLength: 20,
-                            onChanged: (value) {
-                              setState(() {
+                      // 상품 이름 필드
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("상품 이름", style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextFormField(
+                              maxLength: 20,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              decoration: InputDecoration(
+                                hintText: "상품 이름",
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                                fillColor: Colors.white,
+                                filled: true,
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return '상품 이름을 입력해주세요.';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                setState(() {
+                                  name = value;
+                                });
+                              },
+                              onSaved: (value) {
                                 name = value;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              hintText: "상품 이름",
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                              fillColor: Colors.white,
-                              filled: true,
-                              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                              },
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("상품 가격", style: TextStyle(fontWeight: FontWeight.bold)),
-                          TextField(
-                            maxLength: 10,
-                            inputFormatters: [FilteringTextInputFormatter.digitsOnly], // 숫자만 입력
-                            onChanged: (value) {
-                              setState(() {
-                                price = int.tryParse(value);
-                              });
-                            },
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              hintText: "상품 가격",
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                              fillColor: Colors.white,
-                              filled: true,
-                              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                      // 상품 가격 필드
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("상품 가격", style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextFormField(
+                              maxLength: 10,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                hintText: "상품 가격",
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                                fillColor: Colors.white,
+                                filled: true,
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return '상품 가격을 입력해주세요.';
+                                }
 
-                    Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("상품 설명", style: TextStyle(fontWeight: FontWeight.bold)),
-                          TextField(
-                            maxLength: 500,
-                            onChanged: (value) {
-                              setState(() {
+                                return null;
+                              },
+                              onChanged: (value) {
+                                setState(() {
+                                  price = int.tryParse(value.trim());
+                                });
+                              },
+                              onSaved: (value) {
+                                price = int.tryParse(value!.trim());
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      // 상품 설명 필드
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("상품 설명", style: TextStyle(fontWeight: FontWeight.bold)),
+                            TextFormField(
+                              maxLength: 500,
+                              maxLines: 5,
+                              minLines: 5,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              decoration: InputDecoration(
+                                hintText: "상품 설명",
+                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                                fillColor: Colors.white,
+                                filled: true,
+                                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return '상품 설명을 입력해주세요.';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                setState(() {
+                                  description = value;
+                                });
+                              },
+                              onSaved: (value) {
                                 description = value;
-                              });
-                            },
-                            maxLines: 5,
-                            minLines: 5,
-                            decoration: InputDecoration(
-                              hintText: "상품 설명",
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                              fillColor: Colors.white,
-                              filled: true,
-                              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                              },
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-
-            GestureDetector(
-              child: Container(
-                color: areAllFieldsFilled(name, price, description, category) ? AppColors.primary : Colors.grey[300],
-                height: 70,
-                width: double.infinity,
-                child: Center(
-                  child: Text("등록하기", style: TextStyle(color: areAllFieldsFilled(name, price, description, category) ? Colors.white : Colors.black)),
-                ),
-              ),
-              onTap: () async {
-                if (areAllFieldsFilled(name, price, description, category)) {
-                  _addList(context);
-
-                  String? result = await showAppCupertinoDialog(context: context, title: '성공', content: "상품 등록이 완료되었습니다.");
-                  if (result == '확인') {
-                    Navigator.pop(context);
+              GestureDetector(
+                onTap: () async {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    _formKey.currentState?.save();
+                    if (category == null) {
+                      await showAppCupertinoDialog(context: context, title: '실패', content: "카테고리를 선택해주세요.");
+                      return;
+                    }
+                    _addList(context);
+                    String? result = await showAppCupertinoDialog(context: context, title: '성공', content: "상품 등록이 완료되었습니다.");
+                    if (result == '확인') {
+                      Navigator.pop(context);
+                    }
                   }
-                } else {
-                  await showAppCupertinoDialog(context: context, title: '실패', content: "입력하지 않은 값이 있습니다.");
-                }
-              },
-            ),
-          ],
+                },
+                child: Container(
+                  color: areAllFieldsFilled(name, price, description, category) ? AppColors.primary : Colors.grey[300],
+                  height: 70,
+                  width: double.infinity,
+                  child: Center(
+                    child: Text(
+                      "등록하기",
+                      style: TextStyle(color: areAllFieldsFilled(name, price, description, category) ? Colors.white : Colors.black),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -210,9 +252,9 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
   }
 
   bool areAllFieldsFilled(String? name, int? price, String? description, Category? category) {
-    if (name == null || price == null || description == null || name.isEmpty || description.isEmpty || category == null) {
-      return false; // 하나라도 비어 있으면 false 반환
-    }
-    return true; // 모두 입력되었으면 true 반환
+    return (name != null && name.trim().isNotEmpty) &&
+        (price != null) &&
+        (description != null && description.trim().isNotEmpty) &&
+        (category != null);
   }
 }
