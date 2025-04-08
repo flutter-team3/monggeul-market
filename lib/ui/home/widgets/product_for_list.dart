@@ -73,7 +73,7 @@ class ProductForList extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   product.name,
-                  style: TextStyle(fontSize: nameFontSize),
+                  style: TextStyle(fontSize: nameFontSize, fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(height: 4),
