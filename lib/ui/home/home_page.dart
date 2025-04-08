@@ -75,6 +75,7 @@ class HomePage extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      Divider(),
                       categoryButton(null, context),
                       Divider(),
                       categoryButton(Category.hedgehog, context),
