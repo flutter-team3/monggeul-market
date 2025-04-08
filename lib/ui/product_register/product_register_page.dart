@@ -23,11 +23,18 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
   String? description;
   int? price;
   Category? category;
+  final int randomSeed = Random().nextInt(100) + 1; // 생성자 시점에 고정
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("상품 등록"), centerTitle: true),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        scrolledUnderElevation: 0,
+        title: const Text("상품 등록", style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+      ),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Column(
@@ -39,7 +46,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                   children: [
                     AspectRatio(
                       aspectRatio: 16 / 9,
-                      child: AppCachedImage(imageUrl: "${AppConstants.randomImageUrl}/seed/${getRandomInt()}300/300", fit: BoxFit.fitWidth),
+                      child: AppCachedImage(imageUrl: "${AppConstants.randomImageUrl}/seed/${randomSeed}300/300", fit: BoxFit.fitWidth),
                     ),
                     Padding(
                       padding: EdgeInsets.all(10),
@@ -94,6 +101,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                         children: [
                           Text("상품 이름", style: TextStyle(fontWeight: FontWeight.bold)),
                           TextField(
+                            maxLength: 20,
                             onChanged: (value) {
                               setState(() {
                                 name = value;
@@ -117,10 +125,11 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                         children: [
                           Text("상품 가격", style: TextStyle(fontWeight: FontWeight.bold)),
                           TextField(
+                            maxLength: 10,
                             inputFormatters: [FilteringTextInputFormatter.digitsOnly], // 숫자만 입력
                             onChanged: (value) {
                               setState(() {
-                                price = int.parse(value);
+                                price = int.tryParse(value);
                               });
                             },
                             keyboardType: TextInputType.number,
@@ -143,6 +152,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                         children: [
                           Text("상품 설명", style: TextStyle(fontWeight: FontWeight.bold)),
                           TextField(
+                            maxLength: 500,
                             onChanged: (value) {
                               setState(() {
                                 description = value;
@@ -202,10 +212,5 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
       return false; // 하나라도 비어 있으면 false 반환
     }
     return true; // 모두 입력되었으면 true 반환
-  }
-
-  int getRandomInt() {
-    final random = Random();
-    return random.nextInt(100) + 1;
   }
 }

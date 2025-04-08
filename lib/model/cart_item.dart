@@ -12,11 +12,11 @@ class CartItem {
     _amount++;
   }
 
-  void removeOne() {
-    _amount--;
-  }
-
   void addAdditional(int additional) {
     _amount += additional;
+  }
+
+  void removeOne() {
+    _amount--;
   }
 }

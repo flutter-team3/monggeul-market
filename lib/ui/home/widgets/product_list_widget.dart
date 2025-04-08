@@ -8,14 +8,23 @@ class ProductListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final products = ProductProvider.of(context).productListFiltered;
-    return ListView.separated(
+    return products.isNotEmpty ?
+    ListView.builder(
       shrinkWrap: true,
-      // physics: const NeverScrollableScrollPhysics(),
-      separatorBuilder: (context, int index) => const Divider(),
       itemCount: products.length,
       itemBuilder: (BuildContext context, int index) {
         return ProductForList(products[index]);
       },
-    );
+    ) : listIsEmpty(20);
+  }
+
+  Widget listIsEmpty(double fontSize) {
+    return Center(child: Text(
+    "상품이 없습니다",
+    style: TextStyle(
+      fontSize: fontSize,
+      fontWeight: FontWeight.bold,
+    ),
+  ));
   }
 }
