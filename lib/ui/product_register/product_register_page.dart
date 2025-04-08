@@ -23,7 +23,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("TITLE"), centerTitle: true),
+      appBar: AppBar(title: const Text("상품 등록"), centerTitle: true),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Column(
