@@ -117,6 +117,7 @@ class _ProductRegisterPageState extends State<ProductRegisterPage> {
                         children: [
                           Text("상품 가격", style: TextStyle(fontWeight: FontWeight.bold)),
                           TextField(
+                            maxLength: 10,
                             inputFormatters: [FilteringTextInputFormatter.digitsOnly], // 숫자만 입력
                             onChanged: (value) {
                               setState(() {
